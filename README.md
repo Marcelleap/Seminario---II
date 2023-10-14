@@ -83,7 +83,7 @@ A criação de um sistema para o cadastro e controle de calendário em disciplin
 - Toolbar no calendário com ícones para alternar entre três modos: grade, professor e calendário.
 - Botão "Adicionar" para criar novas atividades e matérias no calendário.
 
-  ## Dashboard
+## Dashboard
 
   ### 1. Visualização do Calendário
   - Exibição interativa do calendário com informações sobre atividades, matérias e professores associados.
