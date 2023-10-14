@@ -6,7 +6,7 @@ Quando um professor assume uma nova disciplina, é comum enfrentar desafios na o
 
 ## Desafios no gerenciamento de Disciplinas
 
-## 1. Falta de Consistência
+### 1. Falta de Consistência
 - Professores novos podem enfrentar dificuldades para criar um plano de ensino consistente com as práticas da escola e de seus colegas.
 
 ### 2. Continuidade
