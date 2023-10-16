@@ -44,7 +44,7 @@ A implementação de um sistema de gerenciamento de disciplinas oferece vários 
 O projeto deverá conter uma página em formato de calendário que permita ao usuário consultar e cadastrar o dia, horário de cada umas das disciplinas lecionadas, bem como o conteúdo de cada uma das aulas. 
 
 ### 2.1 Recursos Utilizados
-A API do projeto será desenvolvida em modelo de página web com HTML, CSS e JavaScript e será executada em servidor local na máquina no próprio usuário.
+A API do projeto será desenvolvida em modelo de página web com HTML, CSS e JavaScript e será executada em servidor local na máquina no próprio usuário. Todo o desenvolvimento da aplicação será atualizado por meio deste repositório do GitHub.
 
 ### 2.2 Armazenamento de Dados
 O armazenamento de todos os dados gerados pela aplicação será feito em local storage (armazenamento local).
