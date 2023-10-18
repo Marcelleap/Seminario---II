@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Gerenciador de Disciplinas</title>
+</head>
+
+<body>
+
+    <!---INÍCIO FORMULÁRIO DA DISCIPLINA-->
+    <form id="dateForm">
+        <label for="subjectName">Disciplina:</label>
+        <input type="input" id="subjectName" required>
+
+        <label for="className">Turma:</label>
+        <input type="input" id="className" required>
+
+        <label for="institution">Instituição:</label>
+        <input type="input" id="institution" required>
+
+        <br><br>
+        <label for="startDate">Início do semestre:</label>
+        <input type="date" id="startDate" required>
+
+        <label for="endDate">Fim do semestre:</label>
+        <input type="date" id="endDate" required>
+
+        <script>
+            function createClassesSchedulesForm() {
+                var classes = parseInt(document.getElementById("classes").value)
+                var container = document.getElementById("classesCointainer")
+                container.innerHTML = '' // Limpa os campos anteriores
+
+                for (var i = 1; i <= classes; i++) {
+                    var div = document.createElement("div")
+                    div.innerHTML = `
+                    <label for="day${i}">Dia da semana:</label>
+                    <select id="day${i}" name="days[${i}]">
+                        <option value="Segunda">Segunda-feira</option>
+                        <option value="Terça">Terça-feira</option>
+                        <option value="Quarta">Quarta-feira</option>
+                        <option value="Quinta">Quinta-feira</option>
+                        <option value="Sexta">Sexta-feira</option>
+                        <option value="Sábado">Sábado</option>
+                        <option value="Domingo">Domingo</option>
+                    </select>
+                    <label for="classBeginning${i}">Hora de início:</label>
+                    <input type="time" id="beginning${i}" name="classBeginning[${i}]">
+                    <label for="classEnding${i}">Hora de fim:</label>
+                    <input type="time" id="classEnding${i}" name="classEnding[${i}]">
+                `
+                    container.appendChild(div)
+                }
+            }
+        </script>
+        </head>
+
+        <body>
+            <form>
+                <br>
+                <p>Quantas aulas dessa disciplina serão ministradas por semana nesta turma?</p>
+                <input type="number" id="classes" name="classes" min="1" max="7">
+                <input type="button" value="Criar Campos" onclick="createClassesSchedulesForm()">
+            </form>
+
+            <div id="classesCointainer"></div>
+
+            <br><br>
+            <button type="button" id="generateCalendarButton">Gerar Calendário</button><br><br>
+    </form>
+    <!---FIM DO FORMULÁRIO DA DISCIPLINA-->
+
+    <script>
+
+
+        function saveSubjectFormInArray() { //ok
+            try {
+                const subjectName = document.getElementById('subjectName').value
+                const className = document.getElementById('className').value
+                const institution = document.getElementById('institution').value
+                const startDate = document.getElementById('startDate').value
+                const endDate = document.getElementById('endDate').value
+                const classesPerWeek = parseInt(document.getElementById('classes').value)
+                const classSchedules = []
+
+                for (let i = 1; i <= classesPerWeek; i++) {
+                    const dayOfWeek = document.getElementById(`day${i}`).value
+                    const classBeginning = document.getElementById(`beginning${i}`).value
+                    const classEnding = document.getElementById(`classEnding${i}`).value
+
+                    classSchedules.push({
+                        dayOfWeek,
+                        classBeginning,
+                        classEnding,
+                    })
+                }
+
+                const subjectForm = {
+                    subjectName,
+                    className,
+                    institution,
+                    startDate,
+                    endDate,
+                    classesPerWeek,
+                    classSchedules,
+                }
+
+                console.log(subjectForm)
+
+                return subjectForm
+            } catch (error) {
+                console.error("Erro ao armazenar informações do formulário da disciplina no array (saveSubjectFormInArray).", error)
+            }
+        }
+
+       /* function saveToLocalStorage(data) {
+            try {
+                localStorage.setItem('subjectForm', JSON.stringify(data));
+            } catch (error) {
+                console.error('Erro ao salvar formulário da disciplina no localStorage (saveToLocalStorage).', error);
+            }
+        }*/
+
+        function getSemesterRange(startDate, endDate) { //ok
+            try {
+                const weekdays = []
+                const current = new Date(startDate)
+
+                // Converta endDate em um objeto Date
+                const endDateObj = new Date(endDate)
+
+                // Adicione 1 ao dia de endDate
+                endDateObj.setDate(endDateObj.getDate() + 1)
+
+                const nextEndDate = endDateObj
+
+                console.log(nextEndDate)
+
+                const daysOfWeek = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado']
+
+                while (current <= endDateObj) {
+                    const dayOfWeek = current.getDay()
+                    if (dayOfWeek >= 0 && dayOfWeek <= 6) {
+                        const formattedDate = `${current.getDate()}/${current.getMonth() + 1}`
+                        const dayName = daysOfWeek[dayOfWeek]
+                        weekdays.push({
+                            dayOfMonth: formattedDate,
+                            dayOfWeek: dayName,
+                        });
+                    }
+                    current.setDate(current.getDate() + 1)
+                }
+
+                weekdays.shift()
+
+                return weekdays
+            } catch (error) {
+                console.error("Erro ao gerar array contendo as datas do calendário (getSemesterRange).", error)
+            }
+        }
+
+        function getClassesRange(subjectForm, semesterRange) { //ok
+            try {
+                const classesRange = []
+
+                const formDaysOfWeek = subjectForm.classSchedules.map(schedule => schedule.dayOfWeek)
+
+                for (const semesterDay of semesterRange) {
+                    for (const formDayOfWeek of formDaysOfWeek) {
+                        if (semesterDay.dayOfWeek.includes(formDayOfWeek)) {
+                            const classInfo = {
+                                dayOfMonth: semesterDay.dayOfMonth,
+                                dayOfWeek: semesterDay.dayOfWeek,
+                                classBeginning: subjectForm.classSchedules.find(schedule => schedule.dayOfWeek === formDayOfWeek).classBeginning,
+                                classEnding: subjectForm.classSchedules.find(schedule => schedule.dayOfWeek === formDayOfWeek).classEnding,
+                            }
+                            classesRange.push(classInfo);
+                        }
+                    }
+                }
+
+                console.log(classesRange)
+                return classesRange;
+            } catch (error) {
+                console.error("Erro ao gerar calendário da disciplina (getClassesRange).", error)
+            }
+        }
+
+        function createTableWithClasses(classesRange) { //ok
+            try {
+                const table = document.createElement('table');
+                const thead = document.createElement('thead');
+                const tbody = document.createElement('tbody');
+
+                // Cabeçalho da tabela
+                const headerRow = thead.insertRow();
+                const headers = ['Dia do Mês', 'Dia da Semana', 'Horário', 'Conteúdo da Aula'];
+
+                headers.forEach(headerText => {
+                    const th = document.createElement('th');
+                    th.textContent = headerText;
+                    headerRow.appendChild(th);
+                });
+
+                // Linhas da tabela com dados
+                classesRange.forEach(classInfo => {
+                    const row = tbody.insertRow();
+                    const { dayOfMonth, dayOfWeek, classBeginning, classEnding } = classInfo;
+
+                    const cellDayOfMonth = row.insertCell(0);
+                    cellDayOfMonth.textContent = dayOfMonth;
+                    cellDayOfMonth.style.textAlign = 'center'; // Centraliza o texto na coluna
+
+                    const cellDayOfWeek = row.insertCell(1);
+                    cellDayOfWeek.textContent = dayOfWeek;
+                    cellDayOfWeek.style.textAlign = 'center'; // Centraliza o texto na coluna
+
+                    const cellTime = row.insertCell(2);
+                    cellTime.textContent = `${classBeginning} - ${classEnding}`;
+                    cellTime.style.textAlign = 'center'; // Centraliza o texto na coluna
+
+                    const cellContent = row.insertCell(3);
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    cellContent.appendChild(input);
+                    cellContent.style.textAlign = 'center'; // Centraliza o texto na coluna
+                });
+
+                // Adiciona o cabeçalho e o corpo à tabela
+                table.appendChild(thead);
+                table.appendChild(tbody);
+
+                // Estilos de borda
+                table.style.borderCollapse = 'collapse';
+                table.style.width = '100%';
+
+                // Estilos das células
+                const cells = table.getElementsByTagName('td');
+                for (let i = 0; i < cells.length; i++) {
+                    cells[i].style.border = '1px solid #dddddd';
+                    cells[i].padding = '8px';
+                }
+
+                return table;
+            } catch (error) {
+                console.error("Erro ao criar tabela da disciplina (createTableWithClasses).", error)
+            }
+        }
+
+        function generateCalendar() { //ok
+            const subjectForm = saveSubjectFormInArray();
+
+            const startDate = new Date(subjectForm.startDate);
+            const endDate = new Date(subjectForm.endDate);
+
+            const semesterRange = getSemesterRange(startDate, endDate);
+            console.log(semesterRange)
+
+            const classesRange = getClassesRange(subjectForm, semesterRange);
+            console.log(classesRange)
+
+            const table = createTableWithClasses(classesRange);
+            document.body.appendChild(table);
+
+           // saveToLocalStorage(subjectForm);
+        }
+
+        function main() { //ok
+            const generateCalendarButton = document.getElementById('generateCalendarButton');
+            generateCalendarButton.addEventListener('click', generateCalendar);
+        }
+
+        main();
+
+    </script>
+</body>
+
+</html>
