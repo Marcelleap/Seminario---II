@@ -6,9 +6,9 @@
 
 # Sumário
 1. <a href="Docs\Temática.md">Temática</a>
-   - 1.1 <a href="Docs\Temática.md">Descrição do Tema</a>
-   - 1.2 <a href="Docs\Temática.md">Desafios no Gerenciamento de Disciplinas</a>
-   - 1.3 <a href="Docs\Temática.md">Beneficios de um Sistema de Gerenciamento de Disciplinas</a>
+   - 1.1 <a href="Docs\Temática.md#L3">Descrição do Tema</a>
+   - 1.2 <a href="Docs\Temática.md#L6">Desafios no Gerenciamento de Disciplinas</a>
+   - 1.3 <a href="Docs\Temática.md#13">Beneficios de um Sistema de Gerenciamento de Disciplinas</a>
 
 2. <a href="Docs\Proposta.md">Proposta de Projeto</a>
    - 2.1 <a href="Docs\Proposta.md">Recursos Ultilizados</a>
