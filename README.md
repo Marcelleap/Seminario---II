@@ -10,8 +10,8 @@
 | ETAPA 1 | Definição dos problemas e formação das equipes |
 | ETAPA 2 | <a href="Docs\Temática.md"> Documentação de Contexto</a>
 
-1. <a href="a href="Docs\Temática.md">Temática</a>
-   - 1.1 <a href="Docs\Temática.md"#L2>Descrição do Tema</a>
+1. <a href="Docs\Temática.md">Temática</a>
+   - 1.1 <a href="Docs\Temática.md">Descrição do Tema</a>
    - 1.2 [Desafios no Gerenciamento de Disciplinas](#desafios-no-gerenciamento-de-disciplinas)
    - 1.3 [Benefícios de um Sistema de Gerenciamento de Disciplinas](#benefícias-de-um-sistema-de-gerenciamento-de-disciplinas)
 
