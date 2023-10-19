@@ -5,22 +5,17 @@
 > - *Grupo:* Hadassa Alves de Gouvea, João Henrique dos Santos Ferreira, Leonardo Silva Melo Santos, Marcelle Andrade Pereira e Vinicius Henrique Muniz Penido
 
 # Sumário
-| Etapa   |  Atividades |
-|  :----:   | ----------- |
-| ETAPA 1 | Definição dos problemas e formação das equipes |
-| ETAPA 2 | <a href="Docs\Temática.md"> Documentação de Contexto</a>
-
 1. <a href="Docs\Temática.md">Temática</a>
    - 1.1 <a href="Docs\Temática.md">Descrição do Tema</a>
-   - 1.2 [Desafios no Gerenciamento de Disciplinas](#desafios-no-gerenciamento-de-disciplinas)
-   - 1.3 [Benefícios de um Sistema de Gerenciamento de Disciplinas](#benefícias-de-um-sistema-de-gerenciamento-de-disciplinas)
+   - 1.2 <a href="Docs\Temática.md">Desafios no Gerenciamento de Disciplinas</a>
+   - 1.3 <a href="Docs\Temática.md">Beneficios de um Sistema de Gerenciamento de Disciplinas</a>
 
-2. [Proposta de Projeto](#proposta-de-projeto)
-   - 2.1 [Recursos Utilizados](#recursos-utilizados)
-   - 2.2 [Armazenamento de Dados](#armazenamento-de-dados)
-   - 2.3 [Funcionalidades-Chave do Sistema](#funcionalidades-chave-do-sistema)
-   - 2.4 [Configurações Operacionais do Sistema do Calendário](#configurações-operacionais-do-sistema-do-calendário)
-   - 2.5 [Configurações do Cadastro e Gerenciamento das Disciplinas](#configurações-do-cadastro-e-gerenciamento-das-disciplinas)
-   - 2.6 [Dashboard](#dashboard)
+2. <a href="Docs\Proposta.md">Proposta de Projeto</a>
+   - 2.1 <a href="Docs\Proposta.md">Recursos Ultilizados</a>
+   - 2.2 <a href="Docs\Proposta.md">Armazenamento de Dados</a>
+   - 2.3 <a href="Docs\Proposta.md">Funcionalidades-Chave do Sistema</a>
+   - 2.4 <a href="Docs\Proposta.md">Configurações Operacionais do Sistema de Calendário</a>
+   - 2.5 <a href="Docs\Proposta.md">Configurações do Sistema de Disciplinas</a>
+   - 2.6 <a href="Docs\Proposta.md">Dashboard</a>
 
-3. [Conclusão](#conclusão)
+3. <a href="Docs\Conclusão.md">Conclusão</a>
