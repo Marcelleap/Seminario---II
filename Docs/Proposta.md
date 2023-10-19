@@ -38,9 +38,16 @@ O armazenamento de todos os dados gerados pela aplicação será feito em local 
 
 As telas fornecem informações detalhadas sobre todas as funcionalidades, incluindo seus objetivos, orientações de negócios, consequências, características, diretrizes práticas e ilustrações visuais por meio de capturas de tela para esclarecer as descrições fornecidas. Durante o processo, é fundamental ressaltar que essas telas podem sofrer alterações, tanto em sua estrutura quanto nas descrições das funcionalidades, refletindo a evolução contínua do projeto.
 
-<img src="Img\Untitled.png">
-<img src="Img\Untitled1.png">
-<img src="Img\Untitled2.png">
-<img src="Img\Untitled3.png">
+#### Dashboard Calendário
+<img src="https://github.com/Marcelleap/SeminarioIII-/blob/main/Img/Untitled.jpeg">
+
+#### Professor 
+<img src="https://github.com/Marcelleap/SeminarioIII-/blob/main/Img/Untitled1.jpeg">
+
+#### Matéria 
+<img src="https://github.com/Marcelleap/SeminarioIII-/blob/main/Img/Untitled2.jpeg">
+
+#### Configurações do Calendário
+<img src="https://github.com/Marcelleap/SeminarioIII-/blob/main/Img/Untitled3.jpeg">
 
 Caso queria vizulizar diretamente no Figma as telas podem ser encntradas a partir do link <a href="https://www.figma.com/proto/VRGSx8AUUBqFxJJmn3fP4O/Semin%C3%A1rios-III?page-id=0%3A1&type=design&node-id=1-2&viewport=299%2C198%2C0.11&t=Wzv8U2WgGfkBt4i9-1&scaling=scale-down&starting-point-node-id=1%3A2&mode=design">Figma</a>
