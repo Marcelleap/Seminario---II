@@ -15,7 +15,7 @@
    - 2.2 <a href="Docs\Proposta.md#22-armazenamento-de-dados">Armazenamento de Dados</a>
    - 2.3 <a href="Docs\Proposta.md#23-funcionalidades-chave-do-sistema">Funcionalidades-Chave do Sistema</a>
    - 2.4 <a href="Docs\Proposta.md#24-configurações-operacionais-do-sistema-do-calendário">Configurações Operacionais do Sistema de Calendário</a>
-   - 2.5 <a href="Docs\Proposta.md#25-configurações-do-cadastro-e-gerenciamento-das-disciplinas">Configurações do Sistema de Disciplinas</a>
+   - 2.5 <a href="Docs\Proposta.md#25-configurações-do-cadastro-e-gerenciamento-das-disciplinas">Configurações do Cadastro e Gerenciamento das Disciplinas</a>
    - 2.6 <a href="Docs\Proposta.md#26-dashboard">Dashboard</a>
    - 2.7 <a href="Docs\Proposta.md#27-telas">Telas</a>
 
