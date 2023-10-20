@@ -19,7 +19,7 @@
                 <label for="className">Turma:</label>
                 <input type="input" id="className" required>
 
-                <label for="institution">Instituição:</label>
+                <label for "institution">Instituição:</label>
                 <input type="input" id="institution" required>
 
                 <br><br>
@@ -31,12 +31,12 @@
 
                 <script>
                     function createClassesSchedulesForm() {
-                        var classes = parseInt(document.getElementById("classes").value)
-                        var container = document.getElementById("classesCointainer")
-                        container.innerHTML = '' // Limpa os campos anteriores
+                        var classes = parseInt(document.getElementById("classes").value);
+                        var container = document.getElementById("classesContainer");
+                        container.innerHTML = ''; // Limpa os campos anteriores
 
                         for (var i = 1; i <= classes; i++) {
-                            var div = document.createElement("div")
+                            var div = document.createElement("div");
                             div.innerHTML = `
                             <label for="day${i}">Dia da semana:</label>
                             <select id="day${i}" name="days[${i}]">
@@ -52,8 +52,8 @@
                             <input type="time" id="beginning${i}" name="classBeginning[${i}]">
                             <label for="classEnding${i}">Hora de fim:</label>
                             <input type="time" id="classEnding${i}" name="classEnding[${i}]">
-                        `
-                            container.appendChild(div)
+                        `;
+                            container.appendChild(div);
                         }
                     }
                 </script>
@@ -65,7 +65,7 @@
                 <input type="button" value="Criar Campos" onclick="createClassesSchedulesForm()">
             </form>
 
-            <div id="classesCointainer"></div>
+            <div id="classesContainer"></div>
 
             <br><br>
             <button type="button" id="generateCalendarButton">Salvar</button>
@@ -115,8 +115,7 @@
         font-weight: bold;
         cursor: pointer;
     }
-
-    /* CSS para o Pop-up de confirmação de exclusão */
+    
     .popup {
         display: none;
         position: fixed;
@@ -175,7 +174,8 @@
     })
 
     document.getElementById('popupDeleteConfirm').addEventListener('click', function () {
-        // ~~ Exclusão aqui!
+        const data = returnFromLocalStorage()
+        removeFromLocalStorage(data)
         document.getElementById('myPopUp').style.display = 'none'
         document.getElementById('myModal').style.display = 'none'
     })
@@ -217,6 +217,8 @@
                 classSchedules,
             }
 
+            saveToLocalStorage(subjectForm)
+
             console.log(subjectForm)
 
             return subjectForm
@@ -235,11 +237,31 @@
 
     function returnFromLocalStorage() {
         try {
-            const data = JSON.parse(localStorage.getItem('database')) || [];
-            return data;
+            const data = JSON.parse(localStorage.getItem('database')) || []
+            return data
         } catch (error) {
             console.error('Erro ao retornar formulário da disciplina no localStorage (returnFromLocalStorage).', error)
             return []
+        }
+    }
+
+    function resetFormFields() {
+        document.getElementById('subjectName').value = ''
+        document.getElementById('className').value = ''
+        document.getElementById('institution').value = ''
+        document.getElementById('startDate').value = ''
+        document.getElementById('endDate').value = ''
+        document.getElementById('classes').value = ''
+        document.getElementById('classesContainer').innerHTML = ''
+    }
+
+    function removeFromLocalStorage() {
+        try {
+            localStorage.removeItem('database')
+            resetFormFields()
+            generateCalendar()
+        } catch (error) {
+            console.error('Erro ao remover formulário da disciplina do localStorage (removeFromLocalStorage).', error)
         }
     }
 
@@ -254,8 +276,6 @@
 
             const nextEndDate = endDateObj
 
-            console.log(nextEndDate)
-
             const daysOfWeek = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado']
 
             while (current <= endDateObj) {
@@ -266,7 +286,7 @@
                     weekdays.push({
                         dayOfMonth: formattedDate,
                         dayOfWeek: dayName,
-                    });
+                    })
                 }
                 current.setDate(current.getDate() + 1)
             }
@@ -281,7 +301,7 @@
 
     function getClassesRange(subjectForm, semesterRange) {
         try {
-            const classesRange = [];
+            const classesRange = []
             const formDaysOfWeek = subjectForm.classSchedules.map(schedule => schedule.dayOfWeek)
 
             for (const semesterDay of semesterRange) {
@@ -301,11 +321,10 @@
                 }
             }
 
-            console.log(classesRange);
-            return classesRange;
+            return classesRange
         } catch (error) {
             console.error("Erro ao gerar calendário da disciplina (getClassesRange).", error)
-            return [];
+            return []
         }
     }
 
@@ -369,30 +388,28 @@
         }
     }
 
-    /*
     function fillFormFields(savedData) {
         document.getElementById('subjectName').value = savedData.subjectName
         document.getElementById('className').value = savedData.className
         document.getElementById('institution').value = savedData.institution
         document.getElementById('startDate').value = savedData.startDate
         document.getElementById('endDate').value = savedData.endDate
- 
+
         const classesPerWeek = savedData.classesPerWeek
         document.getElementById('classes').value = classesPerWeek
         createClassesSchedulesForm();
- 
+
         for (let i = 1; i <= classesPerWeek; i++) {
             document.getElementById(`day${i}`).value = savedData.classSchedules[i - 1].dayOfWeek
             document.getElementById(`beginning${i}`).value = savedData.classSchedules[i - 1].classBeginning
             document.getElementById(`classEnding${i}`).value = savedData.classSchedules[i - 1].classEnding
         }
     }
-    */
 
     window.addEventListener('load', function () {
         const savedData = returnFromLocalStorage()
         if (savedData) {
-            //fillFormFields(savedData)
+            fillFormFields(savedData)
             generateCalendar()
         }
     });
@@ -420,5 +437,5 @@
     }
 
     main()
-    
+
 </script>
