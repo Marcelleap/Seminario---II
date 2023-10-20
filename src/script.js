@@ -1,5 +1,6 @@
 let calendar = new EventCalendar(document.getElementById('calendar'), {
     view: 'dayGridMonth',
+    locale: 'pt',
     height: '100%',
     headerToolbar: {
       start: 'prev,next today',
