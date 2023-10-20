@@ -17,5 +17,6 @@
    - 2.4 <a href="Docs\Proposta.md">Configurações Operacionais do Sistema de Calendário</a>
    - 2.5 <a href="Docs\Proposta.md">Configurações do Sistema de Disciplinas</a>
    - 2.6 <a href="Docs\Proposta.md">Dashboard</a>
+   - 2.7 <a href="Docs\Proposta.md">Telas</a>
 
 3. <a href="Docs\Conclusão.md">Conclusão</a>
