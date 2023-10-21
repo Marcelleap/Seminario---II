@@ -1,3 +1,5 @@
+import main from "./calendarFuncs.js";
+
 let calendar = new EventCalendar(document.getElementById('calendar'), {
     view: 'dayGridMonth',
     locale: 'pt',
@@ -51,4 +53,4 @@ let calendar = new EventCalendar(document.getElementById('calendar'), {
   }
   
   createEvent();
-  
+  main();

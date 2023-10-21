@@ -111,7 +111,7 @@
             </svg>
           </div>
         </div>
-        <div class="settings">
+        <button class="settings" id="openModalBtn">
           <div class="conf">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -143,10 +143,83 @@
               </defs>
             </svg>
           </div>
-        </div>
+        </button>
     </nav>
     <div id="calendar"></div>
     </div>
-    <script src="script.js"></script>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModalBtn">&times;</span>
+
+            <form id="dateForm">
+                <label for="subjectName">Disciplina:</label>
+                <input type="input" id="subjectName" required>
+
+                <label for="className">Turma:</label>
+                <input type="input" id="className" required>
+
+                <label for="institution">Instituição:</label>
+                <input type="input" id="institution" required>
+
+                <br><br>
+                <label for="startDate">Início do semestre:</label>
+                <input type="date" id="startDate" required>
+
+                <label for="endDate">Fim do semestre:</label>
+                <input type="date" id="endDate" required>
+
+                <script>
+                    function createClassesSchedulesForm() {
+                        var classes = parseInt(document.getElementById("classes").value);
+                        var container = document.getElementById("classesContainer");
+                        container.innerHTML = ''; // Limpa os campos anteriores
+
+                        for (var i = 1; i <= classes; i++) {
+                            var div = document.createElement("div");
+                            div.innerHTML = `
+                            <label for="day${i}">Dia da semana:</label>
+                            <select id="day${i}" name="days[${i}]">
+                                <option value="Segunda">Segunda-feira</option>
+                                <option value="Terça">Terça-feira</option>
+                                <option value="Quarta">Quarta-feira</option>
+                                <option value="Quinta">Quinta-feira</option>
+                                <option value="Sexta">Sexta-feira</option>
+                                <option value="Sábado">Sábado</option>
+                                <option value="Domingo">Domingo</option>
+                            </select>
+                            <label for="classBeginning${i}">Hora de início:</label>
+                            <input type="time" id="beginning${i}" name="classBeginning[${i}]">
+                            <label for="classEnding${i}">Hora de fim:</label>
+                            <input type="time" id="classEnding${i}" name="classEnding[${i}]">
+                        `;
+                            container.appendChild(div);
+                        }
+                    }
+                </script>
+
+
+                <br>
+                <p>Quantas aulas dessa disciplina serão ministradas por semana nesta turma?</p>
+                <input type="number" id="classes" name="classes" min="1" max="7">
+                <input type="button" value="Criar Campos" onclick="createClassesSchedulesForm()">
+            </form>
+
+            <div id="classesContainer"></div>
+
+            <br><br>
+            <button type="button" id="generateCalendarButton">Salvar</button>
+            <button type="button" id="deleteSubject">Excluir</button>
+
+            <div id="myPopUp" class="popup">
+                <div class="popup-content">
+                    <span class="close" id="closePopUpBtn">&times;</span>
+                    <p>Tem certeza de que deseja excluir este cadastro?</p>
+                    <button id="popupDeleteConfirm">Excluir</button>
+                    <button id="popupDeleteCancel">Cancelar</button>
+                </div>
+            </div>
+        </div>
+        </form>
+    <script src="script.js" type="module"></script>
   </body>
 </html>
