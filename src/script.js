@@ -41,12 +41,11 @@ let calendar = new EventCalendar(document.getElementById('calendar'), {
     },
   });
   
-  function createEvent() {
+  export function createEvent(dayOfMonth, classBeginning, classEnding) {
     let event = {
       title: 'Aula Física',
-      start: '2023-10-20T10:00:00',
-      end: '2023-10-20T12:00:00',
-      allDay: false,
+      start: `${dayOfMonth}T${classBeginning}:00`,
+      end: `${dayOfMonth}T${classEnding}:00`,
     };
   
     calendar.addEvent(event);
