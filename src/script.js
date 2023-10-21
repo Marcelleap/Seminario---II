@@ -41,9 +41,9 @@ let calendar = new EventCalendar(document.getElementById('calendar'), {
     },
   });
   
-  export function createEvent(dayOfMonth, classBeginning, classEnding) {
+  export function createEvent(dayOfMonth, classBeginning, classEnding, subjectName) {
     let event = {
-      title: 'Aula Física',
+      title: subjectName,
       start: `${dayOfMonth}T${classBeginning}:00`,
       end: `${dayOfMonth}T${classEnding}:00`,
     };

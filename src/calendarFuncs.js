@@ -223,11 +223,11 @@ function getClassesRange(subjectForm, semesterRange) {
   }
 }
 
-function addClassesToCalendar(classesRange) {
+function addClassesToCalendar(classesRange, subjectName) {
   classesRange.forEach((classInfo) => {
     const { dayOfMonth, dayOfWeek, classBeginning, classEnding } = classInfo;
 
-    createEvent(dayOfMonth, classBeginning, classEnding);
+    createEvent(dayOfMonth, classBeginning, classEnding, subjectName);
   });
 }
 
@@ -344,7 +344,7 @@ function generateCalendar() {
   //   const table = createTableWithClasses(classesRange);
   //   table.id = 'calendarTable';
   //   document.body.appendChild(table);
-  addClassesToCalendar(classesRange);
+  addClassesToCalendar(classesRange, subjectForm.subjectName);
 }
 
 export default function main() {
