@@ -197,10 +197,8 @@ function getSemesterRange(startDate, endDate) {
     console.log(current);
 
     const endDateObj = new Date(endDate);
-
-    endDateObj.setDate(endDateObj.getDate() + 1);
-
-    const nextEndDate = endDateObj;
+      
+    const nextEndDate = endDateObj.setDate(endDateObj.getDate() + 1);
 
     const daysOfWeek = [
       'Domingo',
@@ -212,7 +210,7 @@ function getSemesterRange(startDate, endDate) {
       'Sábado',
     ];
 
-    while (current <= endDateObj) {
+    while (current <= nextEndDate) {
       const dayOfWeek = current.getDay();
       if (dayOfWeek >= 0 && dayOfWeek <= 6) {
         const formattedDate = `${current.getFullYear()}-${
