@@ -383,7 +383,7 @@ function generateCalendar() {
   const endDate = new Date(subjectForm.endDate);
   const semesterRange = getSemesterRange(startDate, endDate);
   const classesRange = getClassesRange(subjectForm, semesterRange);
-  console.log(classesRange);
+  const event = []
 
   const existingTable = document.getElementById('calendarTable');
   if (existingTable) {
