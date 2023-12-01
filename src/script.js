@@ -96,7 +96,7 @@ document
   .getElementById('popupDeleteConfirm')
   .addEventListener('click', function () {
     const subjectName = document.getElementById('title').textContent;
-    const data = returnFromLocalStorage(subjectName);
+    const data = returnFromLocalStorage(`subject${subjectName}`);
     removeFromLocalStorage(data);
     document.getElementById('myPopUp').style.display = 'none';
     document.getElementById('myModal').style.display = 'none';
@@ -157,7 +157,7 @@ function saveSubjectFormInArray() {
 function saveToLocalStorage(data, subjectName) {
   try {
     console.log(subjectName)
-    localStorage.setItem(`${subjectName}`, JSON.stringify(data));
+    localStorage.setItem(`subject${subjectName}`, JSON.stringify(data));
   } catch (error) {
     console.error(
       'Erro ao salvar formulário da disciplina no localStorage (saveToLocalStorage).',
@@ -168,7 +168,7 @@ function saveToLocalStorage(data, subjectName) {
 
 function returnFromLocalStorage(subjectName) {
   try {
-    const data = JSON.parse(localStorage.getItem(`${subjectName}`)) || [];
+    const data = JSON.parse(localStorage.getItem(`subject${subjectName}`)) || [];
     return data;
   } catch (error) {
     console.error(
@@ -388,8 +388,9 @@ function fillFormFields(savedData) {
 function addSubjectToDropdown(subjectName) {
   const subjectOptions = document.getElementById('subjectOptions');
   const subject = document.createElement('div');
+  subject.textContent = subjectName
   subject.addEventListener(('click'), () => {
-    calendar.events = [];
+    document.querySelectorAll('.ec-event').forEach((element) => element.remove());
     show(subjectName)
     const savedData = returnFromLocalStorage(subjectName);
     if(savedData) {
@@ -397,10 +398,10 @@ function addSubjectToDropdown(subjectName) {
       generateCalendar();
     }
     document.querySelector('#title').textContent = `${subjectName}`;
-  });
-  subject.textContent = subjectName
-  subjectOptions.appendChild(subject);
+    console.log(calendar.events)
 
+  });
+  subjectOptions.appendChild(subject);
 }
 
 function generateCalendar() {
@@ -410,8 +411,6 @@ function generateCalendar() {
   const semesterRange = getSemesterRange(startDate, endDate);
   const classesRange = getClassesRange(subjectForm, semesterRange);
   const event = []
-
-  addSubjectToDropdown(subjectForm.subjectName);
 
   const existingTable = document.getElementById('calendarTable');
   if (existingTable) {
@@ -428,16 +427,25 @@ function main() {
   const generateCalendarButton = document.getElementById(
     'generateCalendarButton'
   );
-  generateCalendarButton.addEventListener('click', generateCalendar);
+  generateCalendarButton.addEventListener('click', () => {
+    generateCalendar
+    addSubjectToDropdown(subjectForm.subjectName);
+  } );
 
-  // console.log(Object.entries(localStorage))
-
-  for (var key in localStorage){
-    const parsedKey = JSON.parse(key);
-    if(parsedKey[1].subjectName) {
-      console.log(key);
-    } 
+  const keys = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    // console.log(key);
+    if (key.startsWith('subject')) {
+      const subject = localStorage.getItem(key);
+      const parsedSubject = JSON.parse(subject);
+      keys.push(parsedSubject);
+      console.log(parsedSubject.subjectName);
+      addSubjectToDropdown(parsedSubject.subjectName);
+    }
   }
+  
+  console.log(keys);
 }
 
 main();
