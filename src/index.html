@@ -16,27 +16,50 @@
       href="https://cdn.jsdelivr.net/npm/@event-calendar/build@2.3.3/event-calendar.min.css"
     />
     <script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@2.3.3/event-calendar.min.js"></script>
-
-
-
+    <!-- Icones -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   </head>
   <body>
-
-
     <div id="container">
       <header>
         <img src="./public/logo.png" alt="Logo" />
         <h1>DASHBOARD</h1>
 
-        <button class="add" id="openModalBtn">
-          <div class="conf">
-            <h4> + Adicionar</h4>
-        </button>
+        <div class="headerButtons">
+          <button class="add" id="openModalBtn">
+            <div class="conf">
+              <h4> + Adicionar</h4>
+            </div>
+          </button>
+        </div>
     
       </header>
-       
-    <div id="calendar"></div>
-    </div>
+      <main>
+        <div class="optionsContainer">
+          <div class="optionsButtons">
+            <button>
+              <span class="material-symbols-outlined">
+                format_list_bulleted
+              </span>
+            </button>
+            <button>
+              <span class="material-symbols-outlined">
+                calendar_month
+              </span>
+            </button>
+          </div>
+          <h2 class="title">Português</h2>
+          <div class="dropdown">
+            <input class="text-box" type="text" placeholder="Selecionar aula" readonly>
+          <div class="options">
+            <div onclick="show('Português')">Português</div>
+            <div onclick="show('Matemática')">Matemática</div>
+          </div>
+        </div>
+        </div>
+        <div id="calendar"></div>
+      </main>
     <div id="myModal" class="modal">
         <div class="modal-content">
           <div class="modal-header">
@@ -144,5 +167,5 @@
 
         <button type="button" id="deleteSubject">Excluir</button>
     <script src="./script.js"></script>
-  </body>
+  </m>
 </html>

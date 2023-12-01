@@ -49,6 +49,16 @@ let calendar = new EventCalendar(document.getElementById('calendar'), {
     calendar.addEvent(event);
   }
 
+  function show(value) {
+    document.querySelector(".text-box").value = value;
+  }
+  
+  let dropdown = document.querySelector(".dropdown")
+  dropdown.onclick = function() {
+      dropdown.classList.toggle("active")
+  }
+  
+
 // Funções calendário
 
 document.getElementById('openModalBtn').addEventListener('click', function () {
