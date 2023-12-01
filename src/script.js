@@ -95,7 +95,8 @@ document.getElementById('closePopUpBtn').addEventListener('click', function () {
 document
   .getElementById('popupDeleteConfirm')
   .addEventListener('click', function () {
-    const data = returnFromLocalStorage();
+    const subjectName = document.getElementById('title').textContent;
+    const data = returnFromLocalStorage(subjectName);
     removeFromLocalStorage(data);
     document.getElementById('myPopUp').style.display = 'none';
     document.getElementById('myModal').style.display = 'none';
@@ -140,7 +141,7 @@ function saveSubjectFormInArray() {
       classSchedules,
     };
 
-    saveToLocalStorage(subjectForm);
+    saveToLocalStorage(subjectForm, subjectName);
 
     console.log(subjectForm);
 
@@ -153,9 +154,10 @@ function saveSubjectFormInArray() {
   }
 }
 
-function saveToLocalStorage(data) {
+function saveToLocalStorage(data, subjectName) {
   try {
-    localStorage.setItem('database', JSON.stringify(data));
+    console.log(subjectName)
+    localStorage.setItem(`${subjectName}`, JSON.stringify(data));
   } catch (error) {
     console.error(
       'Erro ao salvar formulário da disciplina no localStorage (saveToLocalStorage).',
@@ -164,9 +166,9 @@ function saveToLocalStorage(data) {
   }
 }
 
-function returnFromLocalStorage() {
+function returnFromLocalStorage(subjectName) {
   try {
-    const data = JSON.parse(localStorage.getItem('database')) || [];
+    const data = JSON.parse(localStorage.getItem(`${subjectName}`)) || [];
     return data;
   } catch (error) {
     console.error(
@@ -282,6 +284,10 @@ function getClassesRange(subjectForm, semesterRange) {
   }
 }
 
+function resetCalendarEvents() {
+  calendar.events = [];
+}
+
 function addClassesToCalendar(classesRange, subjectName) {
   classesRange.forEach((classInfo) => {
     const { dayOfMonth, dayOfWeek, classBeginning, classEnding } = classInfo;
@@ -379,13 +385,23 @@ function fillFormFields(savedData) {
   }
 }
 
-window.addEventListener('load', function () {
-  const savedData = returnFromLocalStorage();
-  if (savedData) {
-    fillFormFields(savedData);
-    generateCalendar();
-  }
-});
+function addSubjectToDropdown(subjectName) {
+  const subjectOptions = document.getElementById('subjectOptions');
+  const subject = document.createElement('div');
+  subject.addEventListener(('click'), () => {
+    calendar.events = [];
+    show(subjectName)
+    const savedData = returnFromLocalStorage(subjectName);
+    if(savedData) {
+      fillFormFields(savedData);
+      generateCalendar();
+    }
+    document.querySelector('#title').textContent = `${subjectName}`;
+  });
+  subject.textContent = subjectName
+  subjectOptions.appendChild(subject);
+
+}
 
 function generateCalendar() {
   const subjectForm = saveSubjectFormInArray();
@@ -394,6 +410,8 @@ function generateCalendar() {
   const semesterRange = getSemesterRange(startDate, endDate);
   const classesRange = getClassesRange(subjectForm, semesterRange);
   const event = []
+
+  addSubjectToDropdown(subjectForm.subjectName);
 
   const existingTable = document.getElementById('calendarTable');
   if (existingTable) {
@@ -411,6 +429,15 @@ function main() {
     'generateCalendarButton'
   );
   generateCalendarButton.addEventListener('click', generateCalendar);
+
+  // console.log(Object.entries(localStorage))
+
+  for (var key in localStorage){
+    const parsedKey = JSON.parse(key);
+    if(parsedKey[1].subjectName) {
+      console.log(key);
+    } 
+  }
 }
 
 main();
