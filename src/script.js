@@ -70,6 +70,10 @@ document.getElementById('closeModalBtn').addEventListener('click', function () {
   document.body.style.overflow = 'visible';
 });
 
+document
+  .getElementById('createScheduleInput')
+  .addEventListener('click', createClassesSchedulesForm);
+
 window.onclick = function (event) {
   var modal = document.getElementById('myModal');
   if (event.target == modal) {
@@ -82,31 +86,30 @@ window.onclick = function (event) {
   }
 };
 
-document.getElementById('deleteSubject').addEventListener('click', function () {
-  document.getElementById('myPopUp').style.display = 'block';
+document.getElementById('deleteButton').addEventListener('click', function () {
+  console.log('delete');
+  const overlay = document.getElementById('overlay');
+  const deletePopup = document.getElementById('deletePopup');
+  overlay.classList.remove('hide');
+  deletePopup.classList.remove('hide');
 });
 
-document.getElementById('closePopUpBtn').addEventListener('click', function () {
-  document.getElementById('myPopUp').style.display = 'none';
-  document.getElementById('myModal').style.display = 'none';
+document.getElementById('overlay').addEventListener('click', () => {
+  overlay.classList.add('hide');
+  deletePopup.classList.add('hide');
 });
 
-document
-  .getElementById('popupDeleteConfirm')
-  .addEventListener('click', function () {
-    const subjectName = document.getElementById('title').textContent;
-    const data = returnFromLocalStorage(`subject${subjectName}`);
-    removeFromLocalStorage(data);
-    document.getElementById('myPopUp').style.display = 'none';
-    document.getElementById('myModal').style.display = 'none';
-  });
+document.getElementById('cancelPopupButton').addEventListener('click', () => {
+  overlay.classList.add('hide');
+  deletePopup.classList.add('hide');
+});
 
-document
-  .getElementById('popupDeleteCancel')
-  .addEventListener('click', function () {
-    document.getElementById('myPopUp').style.display = 'none';
-    document.getElementById('myModal').style.display = 'none';
-  });
+document.getElementById('confirmPopupButton').addEventListener('click', () => {
+  console.log('confirma');
+  removeFromLocalStorage();
+  overlay.classList.add('hide');
+  deletePopup.classList.add('hide');
+});
 
 // Alternar entre lista e calendario
 
@@ -122,7 +125,7 @@ document.getElementById('listButton').addEventListener('click', () => {
 document.getElementById('calendarButton').addEventListener('click', () => {
   console.log('Calendar');
   document.getElementById('calendarTable').setAttribute('class', 'hide');
-  document.getElementById('calendar').setAttribute('class', 'calendar-show');
+  document.getElementById('calendar').setAttribute('class', 'block-show');
   calendarScreen = true;
 });
 
@@ -171,6 +174,33 @@ function saveSubjectFormInArray() {
   }
 }
 
+function createClassesSchedulesForm() {
+  var classes = parseInt(document.getElementById('classes').value);
+  var container = document.getElementById('classesContainer');
+  container.innerHTML = ''; // Limpa os campos anteriores
+
+  for (var i = 1; i <= classes; i++) {
+    var div = document.createElement('div');
+    div.innerHTML = `
+              <label for="day${i}">Dia da semana:</label>
+              <select id="day${i}" name="days[${i}]">
+                  <option value="Segunda">Segunda-feira</option>
+                  <option value="Terça">Terça-feira</option>
+                  <option value="Quarta">Quarta-feira</option>
+                  <option value="Quinta">Quinta-feira</option>
+                  <option value="Sexta">Sexta-feira</option>
+                  <option value="Sábado">Sábado</option>
+                  <option value="Domingo">Domingo</option>
+              </select>
+              <label for="classBeginning${i}">Hora de início:</label>
+              <input type="time" id="beginning${i}" name="classBeginning[${i}]">
+              <label for="classEnding${i}">Hora de fim:</label>
+              <input type="time" id="classEnding${i}" name="classEnding[${i}]">
+          `;
+    container.appendChild(div);
+  }
+}
+
 function saveToLocalStorage(data, subjectName) {
   try {
     console.log(subjectName);
@@ -209,9 +239,28 @@ function resetFormFields() {
 
 function removeFromLocalStorage() {
   try {
-    localStorage.removeItem('database');
+    const currentPage = document.getElementById('title').textContent;
+    localStorage.removeItem(`subject${currentPage}`);
+    const subjects = document
+      .getElementById('subjectOptions')
+      .querySelectorAll('div');
+    for (const subject of subjects) {
+      if (subject.textContent === currentPage) {
+        subject.remove();
+      }
+    }
+    document
+      .querySelectorAll('.ec-event')
+      .forEach((element) => element.remove());
+    document
+      .querySelector('.optionsContainer')
+      .querySelectorAll('button')
+      .forEach((button) => button.classList.add('hide'));
+
+    document.getElementById('title').textContent = '';
+    document.querySelector('.text-box').value = '';
+
     resetFormFields();
-    generateCalendar();
   } catch (error) {
     console.error(
       'Erro ao remover formulário da disciplina do localStorage (removeFromLocalStorage).',
@@ -302,10 +351,6 @@ function getClassesRange(subjectForm, semesterRange) {
   }
 }
 
-function resetCalendarEvents() {
-  calendar.events = [];
-}
-
 function addClassesToCalendar(classesRange, subjectName) {
   classesRange.forEach((classInfo) => {
     const { dayOfMonth, dayOfWeek, classBeginning, classEnding } = classInfo;
@@ -322,9 +367,7 @@ function createTableWithClasses(classesRange) {
 
     if (calendarScreen) {
       table.setAttribute('class', 'hide');
-      document
-        .getElementById('calendar')
-        .setAttribute('class', 'calendar-show');
+      document.getElementById('calendar').setAttribute('class', 'block-show');
     } else {
       table.setAttribute('class', 'table-show');
       document.getElementById('calendar').setAttribute('class', 'hide');
@@ -414,6 +457,11 @@ function addSubjectToDropdown(subjectName) {
     document
       .querySelectorAll('.ec-event')
       .forEach((element) => element.remove());
+    document
+      .querySelector('.optionsContainer')
+      .querySelectorAll('button')
+      .forEach((element) => element.classList.remove('hide'));
+
     show(subjectName);
     const savedData = returnFromLocalStorage(subjectName);
     if (savedData) {

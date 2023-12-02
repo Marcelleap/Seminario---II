@@ -46,21 +46,18 @@
       <main>
         <div class="optionsContainer">
           <div class="optionsButtons">
-            <button id="listButton">
+            <button type="button" class="hide" id="listButton">
               <span class="material-symbols-outlined">
                 format_list_bulleted
               </span>
             </button>
-            <button id="calendarButton">
+            <button type="button" class="hide" id="calendarButton">
               <span class="material-symbols-outlined"> calendar_month </span>
             </button>
           </div>
           <h2 id="title" class="title"></h2>
           <div class="optionsButtons">
-            <button id="editButton">
-              <span class="material-symbols-outlined"> edit_square </span>
-            </button>
-            <button id="deleteButton">
+            <button type="button" class="hide" id="deleteButton">
               <span class="material-symbols-outlined"> delete </span>
             </button>
             <div class="dropdown">
@@ -127,53 +124,22 @@
                 <input type="date" id="endDate" required />
               </div>
 
-              <div class="col center">
+              <!-- <div class="col center">
                 <label for="corDoEvento">Cor</label>
                 <input type="color" id="corDoEvento" />
-              </div>
+              </div> -->
             </div>
 
-            <script>
-              function createClassesSchedulesForm() {
-                var classes = parseInt(
-                  document.getElementById('classes').value
-                );
-                var container = document.getElementById('classesContainer');
-                container.innerHTML = ''; // Limpa os campos anteriores
-
-                for (var i = 1; i <= classes; i++) {
-                  var div = document.createElement('div');
-                  div.innerHTML = `
-                            <label for="day${i}">Dia da semana:</label>
-                            <select id="day${i}" name="days[${i}]">
-                                <option value="Segunda">Segunda-feira</option>
-                                <option value="Terça">Terça-feira</option>
-                                <option value="Quarta">Quarta-feira</option>
-                                <option value="Quinta">Quinta-feira</option>
-                                <option value="Sexta">Sexta-feira</option>
-                                <option value="Sábado">Sábado</option>
-                                <option value="Domingo">Domingo</option>
-                            </select>
-                            <label for="classBeginning${i}">Hora de início:</label>
-                            <input type="time" id="beginning${i}" name="classBeginning[${i}]">
-                            <label for="classEnding${i}">Hora de fim:</label>
-                            <input type="time" id="classEnding${i}" name="classEnding[${i}]">
-                        `;
-                  container.appendChild(div);
-                }
-              }
-            </script>
+            <script></script>
 
             <br />
             <p>Recorencia das aulas na semana</p>
             <input type="number" id="classes" name="classes" min="1" max="7" />
             <input
+              id="createScheduleInput"
               type="button"
               value="+ Criar Campos"
-              onclick="createClassesSchedulesForm()"
             />
-
-            <!-- </form> -->
 
             <div id="classesContainer"></div>
 
@@ -181,21 +147,20 @@
               <button type="button" id="generateCancel">CANCELAR</button>
               <button type="button" id="generateCalendarButton">SALVAR</button>
             </div>
-
-            <div id="myPopUp" class="popup">
-              <div class="popup-content">
-                <span class="close" id="closePopUpBtn">&times;</span>
-                <p>Tem certeza de que deseja excluir este cadastro?</p>
-                <button id="popupDeleteConfirm">Excluir</button>
-                <button id="popupDeleteCancel">Cancelar</button>
-              </div>
-            </div>
           </form>
-
-          <button type="button" id="deleteSubject">Excluir</button>
-          <script src="./script.js"></script>
+        </div>
+      </div>
+      <button id="overlay" class="hide"></button>
+      <div id="deletePopup" class="hide">
+        <div class="deletePopupContent">
+          <p>Tem certeza que deseja deletar?</p>
+          <div class="deletePopupButtons">
+            <button id="cancelPopupButton">Cancelar</button>
+            <button id="confirmPopupButton">Confirmar</button>
+          </div>
         </div>
       </div>
     </div>
+    <script src="./script.js"></script>
   </body>
 </html>

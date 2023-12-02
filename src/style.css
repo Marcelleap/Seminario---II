@@ -133,7 +133,7 @@ table {
   display: table;
 }
 
-.calendar-show {
+.block-show {
   display: block;
 }
 
@@ -229,6 +229,68 @@ td {
 .dropdown .options div:hover {
   background: #62baea;
   color: #fff;
+}
+
+/* Delete Popup */
+#overlay {
+  /* display: none; */
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  z-index: 300;
+}
+
+#deletePopup {
+  z-index: 301;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  width: 30%;
+  height: 20%;
+  border-radius: 0.5rem;
+}
+
+.deletePopupContent {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  font-size: 1.2rem;
+}
+
+.deletePopupButtons {
+  display: flex;
+  gap: 1rem;
+}
+
+.deletePopupButtons button {
+  padding: 0.3rem 0.5rem;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  border-radius: 0.3rem;
+}
+
+#cancelPopupButton {
+  background-color: red;
+}
+
+#cancelPopupButton:hover {
+  background-color: rgb(150, 0, 0);
+}
+
+#confirmPopupButton {
+  background-color: green;
+}
+
+#confirmPopupButton:hover {
+  background-color: rgb(0, 100, 0);
 }
 
 /* MODAL */
