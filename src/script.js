@@ -1,63 +1,62 @@
 let calendar = new EventCalendar(document.getElementById('calendar'), {
-    view: 'dayGridMonth',
+  view: 'dayGridMonth',
+  locale: 'pt',
+  height: '100%',
+  headerToolbar: {
+    start: 'prev,next today',
+    center: 'title',
+    end: 'dayGridMonth,timeGridWeek,timeGridDay,listDay',
+  },
+  allDaySlot: false,
+  buttonText: {
+    close: 'Close',
+    dayGridMonth: 'Mês',
+    listDay: 'Lista',
+    listMonth: 'Lista',
+    listWeek: 'Lista',
+    listYear: 'Lista',
+    resourceTimeGridDay: 'day',
+    resourceTimeGridWeek: 'week',
+    timeGridDay: 'Dia',
+    timeGridWeek: 'Semana',
+    today: 'Hoje',
+  },
+  eventTimeFormat: {
+    hour: '2-digit',
+    minute: 'numeric',
+    hour12: false,
+  },
+  slotLabelFormat: {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: false,
+  },
+  titleFormat: {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
     locale: 'pt',
-    height: '100%',
-    headerToolbar: {
-      start: 'prev,next today',
-      center: 'title',
-      end: 'dayGridMonth,timeGridWeek,timeGridDay,listDay',
-    },
-    allDaySlot: false,
-    buttonText: {
-      close: 'Close',
-      dayGridMonth: 'Mês',
-      listDay: 'Lista',
-      listMonth: 'Lista',
-      listWeek: 'Lista',
-      listYear: 'Lista',
-      resourceTimeGridDay: 'day',
-      resourceTimeGridWeek: 'week',
-      timeGridDay: 'Dia',
-      timeGridWeek: 'Semana',
-      today: 'Hoje',
-    },
-    eventTimeFormat: {
-      hour: '2-digit',
-      minute: 'numeric',
-      hour12: false,
-    },
-    slotLabelFormat: {
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: false,
-    },
-    titleFormat: {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      locale: 'pt'
-    },
-  });
-  
-  function createEvent(dayOfMonth, classBeginning, classEnding, subjectName) {
-    let event = {
-      title: subjectName,
-      start: `${dayOfMonth}T${classBeginning}:00`,
-      end: `${dayOfMonth}T${classEnding}:00`,
-    };
-  
-    calendar.addEvent(event);
-  }
+  },
+});
 
-  function show(value) {
-    document.querySelector(".text-box").value = value;
-  }
-  
-  let dropdown = document.querySelector(".dropdown")
-  dropdown.onclick = function() {
-      dropdown.classList.toggle("active")
-  }
-  
+function createEvent(dayOfMonth, classBeginning, classEnding, subjectName) {
+  let event = {
+    title: subjectName,
+    start: `${dayOfMonth}T${classBeginning}:00`,
+    end: `${dayOfMonth}T${classEnding}:00`,
+  };
+
+  calendar.addEvent(event);
+}
+
+function show(value) {
+  document.querySelector('.text-box').value = value;
+}
+
+let dropdown = document.querySelector('.dropdown');
+dropdown.onclick = function () {
+  dropdown.classList.toggle('active');
+};
 
 // Funções calendário
 
@@ -110,18 +109,22 @@ document
   });
 
 // Alternar entre lista e calendario
+
+let calendarScreen = true;
+
 document.getElementById('listButton').addEventListener('click', () => {
-  console.log("List");
-  document.getElementById('calendarTable').style.display = 'table';
-  document.getElementById('calendar').style.display = 'none'
-}) 
+  console.log('List');
+  document.getElementById('calendarTable').setAttribute('class', 'table-show');
+  document.getElementById('calendar').setAttribute('class', 'hide');
+  calendarScreen = false;
+});
 
 document.getElementById('calendarButton').addEventListener('click', () => {
-  console.log("Calendar");
-  document.getElementById('calendar').style.display = 'block'
-  document.getElementById('calendarTable').style.display = 'none';
-})
-
+  console.log('Calendar');
+  document.getElementById('calendarTable').setAttribute('class', 'hide');
+  document.getElementById('calendar').setAttribute('class', 'calendar-show');
+  calendarScreen = true;
+});
 
 function saveSubjectFormInArray() {
   try {
@@ -170,7 +173,7 @@ function saveSubjectFormInArray() {
 
 function saveToLocalStorage(data, subjectName) {
   try {
-    console.log(subjectName)
+    console.log(subjectName);
     localStorage.setItem(`subject${subjectName}`, JSON.stringify(data));
   } catch (error) {
     console.error(
@@ -182,7 +185,8 @@ function saveToLocalStorage(data, subjectName) {
 
 function returnFromLocalStorage(subjectName) {
   try {
-    const data = JSON.parse(localStorage.getItem(`subject${subjectName}`)) || [];
+    const data =
+      JSON.parse(localStorage.getItem(`subject${subjectName}`)) || [];
     return data;
   } catch (error) {
     console.error(
@@ -223,7 +227,7 @@ function getSemesterRange(startDate, endDate) {
     console.log(current);
 
     const endDateObj = new Date(endDate);
-      
+
     const nextEndDate = endDateObj.setDate(endDateObj.getDate() + 1);
 
     const daysOfWeek = [
@@ -316,7 +320,15 @@ function createTableWithClasses(classesRange) {
     const thead = document.createElement('thead');
     const tbody = document.createElement('tbody');
 
-    table.style.display = 'none';
+    if (calendarScreen) {
+      table.setAttribute('class', 'hide');
+      document
+        .getElementById('calendar')
+        .setAttribute('class', 'calendar-show');
+    } else {
+      table.setAttribute('class', 'table-show');
+      document.getElementById('calendar').setAttribute('class', 'hide');
+    }
 
     // Linhas da tabela com dados
     classesRange.forEach((classInfo) => {
@@ -325,21 +337,17 @@ function createTableWithClasses(classesRange) {
 
       const cellDayOfMonth = row.insertCell(0);
       cellDayOfMonth.textContent = dayOfMonth;
-      cellDayOfMonth.style.textAlign = 'center';
 
       const cellDayOfWeek = row.insertCell(1);
       cellDayOfWeek.textContent = dayOfWeek;
-      cellDayOfWeek.style.textAlign = 'center';
 
       const cellTime = row.insertCell(2);
       cellTime.textContent = `${classBeginning} - ${classEnding}`;
-      cellTime.style.textAlign = 'center';
 
       const cellContent = row.insertCell(3);
       const input = document.createElement('input');
       input.type = 'text';
       cellContent.appendChild(input);
-      cellContent.style.textAlign = 'center';
     });
 
     // Cabeçalho da tabela
@@ -361,9 +369,6 @@ function createTableWithClasses(classesRange) {
 
     table.appendChild(thead);
     table.appendChild(tbody);
-
-    table.style.borderCollapse = 'collapse';
-    table.style.width = '100%';
 
     const cells = table.getElementsByTagName('td');
     for (let i = 0; i < cells.length; i++) {
@@ -404,12 +409,14 @@ function fillFormFields(savedData) {
 function addSubjectToDropdown(subjectName) {
   const subjectOptions = document.getElementById('subjectOptions');
   const subject = document.createElement('div');
-  subject.textContent = subjectName
-  subject.addEventListener(('click'), () => {
-    document.querySelectorAll('.ec-event').forEach((element) => element.remove());
-    show(subjectName)
+  subject.textContent = subjectName;
+  subject.addEventListener('click', () => {
+    document
+      .querySelectorAll('.ec-event')
+      .forEach((element) => element.remove());
+    show(subjectName);
     const savedData = returnFromLocalStorage(subjectName);
-    if(savedData) {
+    if (savedData) {
       fillFormFields(savedData);
       generateCalendar();
     }
@@ -424,16 +431,16 @@ function generateCalendar() {
   const endDate = new Date(subjectForm.endDate);
   const semesterRange = getSemesterRange(startDate, endDate);
   const classesRange = getClassesRange(subjectForm, semesterRange);
-  const event = []
+  const event = [];
 
   const existingTable = document.getElementById('calendarTable');
   if (existingTable) {
     existingTable.remove();
   }
 
-    const table = createTableWithClasses(classesRange);
-    table.id = 'calendarTable';
-    document.body.appendChild(table);
+  const table = createTableWithClasses(classesRange);
+  table.id = 'calendarTable';
+  document.querySelector('#centerContainer').appendChild(table);
   addClassesToCalendar(classesRange, subjectForm.subjectName);
 }
 
@@ -442,9 +449,9 @@ function main() {
     'generateCalendarButton'
   );
   generateCalendarButton.addEventListener('click', () => {
-    generateCalendar
-    addSubjectToDropdown(subjectForm.subjectName);
-  } );
+    generateCalendar();
+    addSubjectToDropdown(document.getElementById('subjectName').value);
+  });
 
   const keys = [];
   for (let i = 0; i < localStorage.length; i++) {
@@ -458,7 +465,7 @@ function main() {
       addSubjectToDropdown(parsedSubject.subjectName);
     }
   }
-  
+
   console.log(keys);
 }
 
