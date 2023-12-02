@@ -109,6 +109,20 @@ document
     document.getElementById('myModal').style.display = 'none';
   });
 
+// Alternar entre lista e calendario
+document.getElementById('listButton').addEventListener('click', () => {
+  console.log("List");
+  document.getElementById('calendarTable').style.display = 'table';
+  document.getElementById('calendar').style.display = 'none'
+}) 
+
+document.getElementById('calendarButton').addEventListener('click', () => {
+  console.log("Calendar");
+  document.getElementById('calendar').style.display = 'block'
+  document.getElementById('calendarTable').style.display = 'none';
+})
+
+
 function saveSubjectFormInArray() {
   try {
     const subjectName = document.getElementById('subjectName').value;
@@ -302,6 +316,8 @@ function createTableWithClasses(classesRange) {
     const thead = document.createElement('thead');
     const tbody = document.createElement('tbody');
 
+    table.style.display = 'none';
+
     // Linhas da tabela com dados
     classesRange.forEach((classInfo) => {
       const row = tbody.insertRow();
@@ -398,8 +414,6 @@ function addSubjectToDropdown(subjectName) {
       generateCalendar();
     }
     document.querySelector('#title').textContent = `${subjectName}`;
-    console.log(calendar.events)
-
   });
   subjectOptions.appendChild(subject);
 }
