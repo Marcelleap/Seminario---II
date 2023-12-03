@@ -111,6 +111,11 @@ document.getElementById('confirmPopupButton').addEventListener('click', () => {
   deletePopup.classList.add('hide');
 });
 
+function adjustTextAreaHeight(textarea) {
+  const scrollHeight = textarea.scrollHeight;
+  textarea.style.height = scrollHeight + 'px';
+}
+
 // Alternar entre lista e calendario
 
 let calendarScreen = true;
@@ -138,6 +143,7 @@ function saveSubjectFormInArray() {
     const endDate = document.getElementById('endDate').value;
     const classesPerWeek = parseInt(document.getElementById('classes').value);
     const classSchedules = [];
+    const classContent = [];
 
     for (let i = 1; i <= classesPerWeek; i++) {
       const dayOfWeek = document.getElementById(`day${i}`).value;
@@ -149,6 +155,7 @@ function saveSubjectFormInArray() {
         classBeginning,
         classEnding,
       });
+      console.log(i);
     }
 
     const subjectForm = {
@@ -160,6 +167,37 @@ function saveSubjectFormInArray() {
       classesPerWeek,
       classSchedules,
     };
+
+    const formattedStartDate = new Date(subjectForm.startDate);
+    const formattedEndDate = new Date(subjectForm.endDate);
+    const semesterRange = getSemesterRange(
+      formattedStartDate,
+      formattedEndDate
+    );
+    const classesRange = getClassesRange(subjectForm, semesterRange);
+
+    const existingTable = document.getElementById('calendarTable');
+    if (existingTable) {
+      existingTable.remove();
+    }
+
+    const table = createTableWithClasses(classesRange);
+    table.id = 'calendarTable';
+    document.querySelector('#centerContainer').appendChild(table);
+    addClassesToCalendar(classesRange, subjectForm.subjectName);
+
+    const textAreaQuantity = document.querySelectorAll('textarea').length;
+    for (let i = 0; i < textAreaQuantity; i++) {
+      const contentNode = document.getElementById(`textarea${i}`);
+      const contentId = i;
+
+      if (contentNode.value !== null) {
+        const content = contentNode.value;
+        classContent.push({ content, contentId });
+      }
+    }
+
+    subjectForm.classContent = classContent;
 
     saveToLocalStorage(subjectForm, subjectName);
 
@@ -259,6 +297,7 @@ function removeFromLocalStorage() {
 
     document.getElementById('title').textContent = '';
     document.querySelector('.text-box').value = '';
+    document.getElementById('calendarTable').setAttribute('class', 'hide');
 
     resetFormFields();
   } catch (error) {
@@ -373,10 +412,14 @@ function createTableWithClasses(classesRange) {
       document.getElementById('calendar').setAttribute('class', 'hide');
     }
 
+    let subject = returnFromLocalStorage(
+      document.getElementById('title').textContent
+    );
     // Linhas da tabela com dados
-    classesRange.forEach((classInfo) => {
+    for (let i = 0; i < classesRange.length; i++) {
       const row = tbody.insertRow();
-      const { dayOfMonth, dayOfWeek, classBeginning, classEnding } = classInfo;
+      const { dayOfMonth, dayOfWeek, classBeginning, classEnding } =
+        classesRange[i];
 
       const cellDayOfMonth = row.insertCell(0);
       cellDayOfMonth.textContent = dayOfMonth;
@@ -388,10 +431,24 @@ function createTableWithClasses(classesRange) {
       cellTime.textContent = `${classBeginning} - ${classEnding}`;
 
       const cellContent = row.insertCell(3);
-      const input = document.createElement('input');
-      input.type = 'text';
+      const input = document.createElement(`textarea`);
+      console.log(subject);
+      input.value = subject.classContent[i].content;
+
+      input.setAttribute('id', `textarea${i}`);
+      input.addEventListener('input', () => {
+        adjustTextAreaHeight(input);
+        const subjectName = document.getElementById('title').textContent;
+        let object = returnFromLocalStorage(subjectName);
+        object.classContent[i].content = input.value;
+        // if (input.value === undefined) {
+        //   object.classContent[i].content = '';
+        // } else {
+        // }
+        saveToLocalStorage(object, subjectName);
+      });
       cellContent.appendChild(input);
-    });
+    }
 
     // Cabeçalho da tabela
     if (classesRange.length > 0) {
@@ -454,6 +511,7 @@ function addSubjectToDropdown(subjectName) {
   const subject = document.createElement('div');
   subject.textContent = subjectName;
   subject.addEventListener('click', () => {
+    document.querySelector('#title').textContent = `${subjectName}`;
     document
       .querySelectorAll('.ec-event')
       .forEach((element) => element.remove());
@@ -468,7 +526,6 @@ function addSubjectToDropdown(subjectName) {
       fillFormFields(savedData);
       generateCalendar();
     }
-    document.querySelector('#title').textContent = `${subjectName}`;
   });
   subjectOptions.appendChild(subject);
 }
@@ -478,18 +535,6 @@ function generateCalendar() {
   const startDate = new Date(subjectForm.startDate);
   const endDate = new Date(subjectForm.endDate);
   const semesterRange = getSemesterRange(startDate, endDate);
-  const classesRange = getClassesRange(subjectForm, semesterRange);
-  const event = [];
-
-  const existingTable = document.getElementById('calendarTable');
-  if (existingTable) {
-    existingTable.remove();
-  }
-
-  const table = createTableWithClasses(classesRange);
-  table.id = 'calendarTable';
-  document.querySelector('#centerContainer').appendChild(table);
-  addClassesToCalendar(classesRange, subjectForm.subjectName);
 }
 
 function main() {

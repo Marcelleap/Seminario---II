@@ -158,6 +158,15 @@ th {
 td {
   background-color: white;
   color: #4466e4;
+  max-width: 400px;
+}
+
+table textarea {
+  width: 100%;
+  resize: none;
+  overflow-y: hidden;
+  min-height: 20px;
+  height: 20px;
 }
 
 /* DROPDOWN */
