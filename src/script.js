@@ -5,7 +5,7 @@ let calendar = new EventCalendar(document.getElementById('calendar'), {
   headerToolbar: {
     start: 'prev,next today',
     center: 'title',
-    end: 'dayGridMonth,timeGridWeek,timeGridDay,listDay'
+    end: 'dayGridMonth,timeGridWeek,timeGridDay,listDay',
   },
   allDaySlot: false,
   buttonText: {
@@ -19,143 +19,143 @@ let calendar = new EventCalendar(document.getElementById('calendar'), {
     resourceTimeGridWeek: 'week',
     timeGridDay: 'Dia',
     timeGridWeek: 'Semana',
-    today: 'Hoje'
+    today: 'Hoje',
   },
   eventTimeFormat: {
     hour: '2-digit',
     minute: 'numeric',
-    hour12: false
+    hour12: false,
   },
   slotLabelFormat: {
     hour: 'numeric',
     minute: '2-digit',
-    hour12: false
+    hour12: false,
   },
   titleFormat: {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
-    locale: 'pt'
-  }
-})
+    locale: 'pt',
+  },
+});
 
-function createEvent (dayOfMonth, classBeginning, classEnding, subjectName) {
+function createEvent(dayOfMonth, classBeginning, classEnding, subjectName) {
   let event = {
     title: subjectName,
     start: `${dayOfMonth}T${classBeginning}:00`,
-    end: `${dayOfMonth}T${classEnding}:00`
-  }
+    end: `${dayOfMonth}T${classEnding}:00`,
+  };
 
-  calendar.addEvent(event)
+  calendar.addEvent(event);
 }
 
-function show (value) {
-  document.querySelector('.text-box').value = value
+function show(value) {
+  document.querySelector('.text-box').value = value;
 }
 
-let dropdown = document.querySelector('.dropdown')
+let dropdown = document.querySelector('.dropdown');
 dropdown.onclick = function () {
-  dropdown.classList.toggle('active')
-}
+  dropdown.classList.toggle('active');
+};
 
 // Funções calendário
 
 document.getElementById('openModalBtn').addEventListener('click', function () {
-  document.getElementById('myModal').style.display = 'block'
-  document.body.style.overflow = 'hidden'
-})
+  document.getElementById('myModal').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+});
 
 document.getElementById('closeModalBtn').addEventListener('click', function () {
-  document.getElementById('myModal').style.display = 'none'
-  document.body.style.overflow = 'visible'
-})
+  document.getElementById('myModal').style.display = 'none';
+  document.body.style.overflow = 'visible';
+});
 
 document
   .getElementById('createScheduleInput')
-  .addEventListener('click', createClassesSchedulesForm)
+  .addEventListener('click', createClassesSchedulesForm);
 
 window.onclick = function (event) {
-  var modal = document.getElementById('myModal')
+  var modal = document.getElementById('myModal');
   if (event.target == modal) {
-    modal.style.display = 'none'
+    modal.style.display = 'none';
   }
 
-  var buttonSave = document.getElementById('generateCalendarButton')
+  var buttonSave = document.getElementById('generateCalendarButton');
   if (event.target == buttonSave) {
-    modal.style.display = 'none'
+    modal.style.display = 'none';
   }
-}
+};
 
 document.getElementById('deleteButton').addEventListener('click', function () {
-  console.log('delete')
-  const overlay = document.getElementById('overlay')
-  const deletePopup = document.getElementById('deletePopup')
-  overlay.classList.remove('hide')
-  deletePopup.classList.remove('hide')
-})
+  console.log('delete');
+  const overlay = document.getElementById('overlay');
+  const deletePopup = document.getElementById('deletePopup');
+  overlay.classList.remove('hide');
+  deletePopup.classList.remove('hide');
+});
 
 document.getElementById('overlay').addEventListener('click', () => {
-  overlay.classList.add('hide')
-  deletePopup.classList.add('hide')
-})
+  overlay.classList.add('hide');
+  deletePopup.classList.add('hide');
+});
 
 document.getElementById('cancelPopupButton').addEventListener('click', () => {
-  overlay.classList.add('hide')
-  deletePopup.classList.add('hide')
-})
+  overlay.classList.add('hide');
+  deletePopup.classList.add('hide');
+});
 
 document.getElementById('confirmPopupButton').addEventListener('click', () => {
-  console.log('confirma')
-  removeFromLocalStorage()
-  overlay.classList.add('hide')
-  deletePopup.classList.add('hide')
-})
+  console.log('confirma');
+  removeFromLocalStorage();
+  overlay.classList.add('hide');
+  deletePopup.classList.add('hide');
+});
 
-function adjustTextAreaHeight (textarea) {
-  const scrollHeight = textarea.scrollHeight
-  textarea.style.height = scrollHeight + 'px'
+function adjustTextAreaHeight(textarea) {
+  const scrollHeight = textarea.scrollHeight;
+  textarea.style.height = scrollHeight + 'px';
 }
 
 // Alternar entre lista e calendario
 
-let calendarScreen = true
+let calendarScreen = true;
 
 document.getElementById('listButton').addEventListener('click', () => {
-  console.log('List')
-  document.getElementById('calendarTable').setAttribute('class', 'table-show')
-  document.getElementById('calendar').setAttribute('class', 'hide')
-  calendarScreen = false
-})
+  console.log('List');
+  document.getElementById('calendarTable').setAttribute('class', 'table-show');
+  document.getElementById('calendar').setAttribute('class', 'hide');
+  calendarScreen = false;
+});
 
 document.getElementById('calendarButton').addEventListener('click', () => {
-  console.log('Calendar')
-  document.getElementById('calendarTable').setAttribute('class', 'hide')
-  document.getElementById('calendar').setAttribute('class', 'block-show')
-  calendarScreen = true
-})
+  console.log('Calendar');
+  document.getElementById('calendarTable').setAttribute('class', 'hide');
+  document.getElementById('calendar').setAttribute('class', 'block-show');
+  calendarScreen = true;
+});
 
-function saveSubjectFormInArray () {
+function saveSubjectFormInArray() {
   try {
-    const subjectName = document.getElementById('subjectName').value
-    const className = document.getElementById('className').value
-    const institution = document.getElementById('institution').value
-    const startDate = document.getElementById('startDate').value
-    const endDate = document.getElementById('endDate').value
-    const classesPerWeek = parseInt(document.getElementById('classes').value)
-    const classSchedules = []
-    const classContent = []
+    const subjectName = document.getElementById('subjectName').value;
+    const className = document.getElementById('className').value;
+    const institution = document.getElementById('institution').value;
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    const classesPerWeek = parseInt(document.getElementById('classes').value);
+    const classSchedules = [];
+    const classContent = [];
 
     for (let i = 1; i <= classesPerWeek; i++) {
-      const dayOfWeek = document.getElementById(`day${i}`).value
-      const classBeginning = document.getElementById(`beginning${i}`).value
-      const classEnding = document.getElementById(`classEnding${i}`).value
+      const dayOfWeek = document.getElementById(`day${i}`).value;
+      const classBeginning = document.getElementById(`beginning${i}`).value;
+      const classEnding = document.getElementById(`classEnding${i}`).value;
 
       classSchedules.push({
         dayOfWeek,
         classBeginning,
-        classEnding
-      })
-      console.log(i)
+        classEnding,
+      });
+      console.log(i);
     }
 
     const subjectForm = {
@@ -165,59 +165,60 @@ function saveSubjectFormInArray () {
       startDate,
       endDate,
       classesPerWeek,
-      classSchedules
-    }
+      classSchedules,
+    };
 
-    const formattedStartDate = new Date(subjectForm.startDate)
-    const formattedEndDate = new Date(subjectForm.endDate)
-    const semesterRange = getSemesterRange(formattedStartDate, formattedEndDate)
-    const classesRange = getClassesRange(subjectForm, semesterRange)
+    const formattedStartDate = new Date(subjectForm.startDate);
+    const formattedEndDate = new Date(subjectForm.endDate);
+    const semesterRange = getSemesterRange(
+      formattedStartDate,
+      formattedEndDate
+    );
+    const classesRange = getClassesRange(subjectForm, semesterRange);
 
-    const existingTable = document.getElementById('calendarTable')
+    const existingTable = document.getElementById('calendarTable');
     if (existingTable) {
-      existingTable.remove()
+      existingTable.remove();
     }
 
-    const table = createTableWithClasses(classesRange)
-    table.id = 'calendarTable'
-    document.querySelector('#centerContainer').appendChild(table)
-    addClassesToCalendar(classesRange, subjectForm.subjectName)
+    createTableWithClasses(classesRange);
+    addClassesToCalendar(classesRange, subjectForm.subjectName);
 
-    const textAreaQuantity = document.querySelectorAll('textarea').length
+    const textAreaQuantity = document.querySelectorAll('textarea').length;
     for (let i = 0; i < textAreaQuantity; i++) {
-      const contentNode = document.getElementById(`textarea${i}`)
-      const contentId = i
+      const contentNode = document.getElementById(`textarea${i}`);
+      const contentId = i;
 
       if (contentNode.value !== null) {
-        const content = contentNode.value
-        classContent.push({ content, contentId })
+        const content = contentNode.value;
+        classContent.push({ content, contentId });
       }
     }
 
-    subjectForm.classContent = classContent
+    subjectForm.classContent = classContent;
 
-    saveToLocalStorage(subjectForm, subjectName)
+    saveToLocalStorage(subjectForm, subjectName);
 
     if (subjectForm) {
-      console.log(subjectForm)
+      console.log(subjectForm);
     }
 
-    return subjectForm
+    return subjectForm;
   } catch (error) {
     console.error(
       'Erro ao armazenar informações do formulário da disciplina no array (saveSubjectFormInArray).',
       error
-    )
+    );
   }
 }
 
-function createClassesSchedulesForm () {
-  var classes = parseInt(document.getElementById('classes').value)
-  var container = document.getElementById('classesContainer')
-  container.innerHTML = '' // Limpa os campos anteriores
+function createClassesSchedulesForm() {
+  var classes = parseInt(document.getElementById('classes').value);
+  var container = document.getElementById('classesContainer');
+  container.innerHTML = ''; // Limpa os campos anteriores
 
   for (var i = 1; i <= classes; i++) {
-    var div = document.createElement('div')
+    var div = document.createElement('div');
     div.innerHTML = `
               <label for="day${i}">Dia da semana:</label>
               <select id="day${i}" name="days[${i}]">
@@ -233,86 +234,89 @@ function createClassesSchedulesForm () {
               <input type="time" id="beginning${i}" name="classBeginning[${i}]">
               <label for="classEnding${i}">Hora de fim:</label>
               <input type="time" id="classEnding${i}" name="classEnding[${i}]">
-          `
-    container.appendChild(div)
+          `;
+    container.appendChild(div);
   }
 }
 
-function saveToLocalStorage (data, subjectName) {
+function saveToLocalStorage(data, subjectName) {
   try {
-    console.log(subjectName)
-    localStorage.setItem(`subject${subjectName}`, JSON.stringify(data))
+    console.log(subjectName);
+    localStorage.setItem(`subject${subjectName}`, JSON.stringify(data));
   } catch (error) {
     console.error(
       'Erro ao salvar formulário da disciplina no localStorage (saveToLocalStorage).',
       error
-    )
+    );
   }
 }
 
-function returnFromLocalStorage (subjectName) {
+function returnFromLocalStorage(subjectName) {
   try {
-    const data = JSON.parse(localStorage.getItem(`subject${subjectName}`)) || []
-    return data
+    const data =
+      JSON.parse(localStorage.getItem(`subject${subjectName}`)) || [];
+    return data;
   } catch (error) {
     console.error(
       'Erro ao retornar formulário da disciplina no localStorage (returnFromLocalStorage).',
       error
-    )
-    return []
+    );
+    return [];
   }
 }
 
-function resetFormFields () {
-  document.getElementById('subjectName').value = ''
-  document.getElementById('className').value = ''
-  document.getElementById('institution').value = ''
-  document.getElementById('startDate').value = ''
-  document.getElementById('endDate').value = ''
-  document.getElementById('classes').value = ''
-  document.getElementById('classesContainer').innerHTML = ''
+function resetFormFields() {
+  document.getElementById('subjectName').value = '';
+  document.getElementById('className').value = '';
+  document.getElementById('institution').value = '';
+  document.getElementById('startDate').value = '';
+  document.getElementById('endDate').value = '';
+  document.getElementById('classes').value = '';
+  document.getElementById('classesContainer').innerHTML = '';
 }
 
-function removeFromLocalStorage () {
+function removeFromLocalStorage() {
   try {
-    const currentPage = document.getElementById('title').textContent
-    localStorage.removeItem(`subject${currentPage}`)
+    const currentPage = document.getElementById('title').textContent;
+    localStorage.removeItem(`subject${currentPage}`);
     const subjects = document
       .getElementById('subjectOptions')
-      .querySelectorAll('div')
+      .querySelectorAll('div');
     for (const subject of subjects) {
       if (subject.textContent === currentPage) {
-        subject.remove()
+        subject.remove();
       }
     }
-    document.querySelectorAll('.ec-event').forEach(element => element.remove())
+    document
+      .querySelectorAll('.ec-event')
+      .forEach((element) => element.remove());
     document
       .querySelector('.optionsContainer')
       .querySelectorAll('button')
-      .forEach(button => button.classList.add('hide'))
+      .forEach((button) => button.classList.add('hide'));
 
-    document.getElementById('title').textContent = ''
-    document.querySelector('.text-box').value = ''
-    document.getElementById('calendarTable').setAttribute('class', 'hide')
+    document.getElementById('title').textContent = '';
+    document.querySelector('.text-box').value = '';
+    document.getElementById('calendarTable').setAttribute('class', 'hide');
 
-    resetFormFields()
+    resetFormFields();
   } catch (error) {
     console.error(
       'Erro ao remover formulário da disciplina do localStorage (removeFromLocalStorage).',
       error
-    )
+    );
   }
 }
 
-function getSemesterRange (startDate, endDate) {
+function getSemesterRange(startDate, endDate) {
   try {
-    const weekdays = []
-    const current = new Date(startDate)
-    console.log(current)
+    const weekdays = [];
+    const current = new Date(startDate);
+    console.log(current);
 
-    const endDateObj = new Date(endDate)
+    const endDateObj = new Date(endDate);
 
-    const nextEndDate = endDateObj.setDate(endDateObj.getDate() + 1)
+    const nextEndDate = endDateObj.setDate(endDateObj.getDate() + 1);
 
     const daysOfWeek = [
       'Domingo',
@@ -321,249 +325,258 @@ function getSemesterRange (startDate, endDate) {
       'Quarta-feira',
       'Quinta-feira',
       'Sexta-feira',
-      'Sábado'
-    ]
+      'Sábado',
+    ];
 
     while (current <= nextEndDate) {
-      const dayOfWeek = current.getDay()
+      const dayOfWeek = current.getDay();
       if (dayOfWeek >= 0 && dayOfWeek <= 6) {
         const formattedDate = `${current.getFullYear()}-${
           current.getMonth() + 1
-        }-${current.getDate()}`
-        const dayName = daysOfWeek[dayOfWeek]
+        }-${current.getDate()}`;
+        const dayName = daysOfWeek[dayOfWeek];
         weekdays.push({
           dayOfMonth: formattedDate,
-          dayOfWeek: dayName
-        })
+          dayOfWeek: dayName,
+        });
       }
-      current.setDate(current.getDate() + 1)
+      current.setDate(current.getDate() + 1);
     }
 
-    weekdays.shift()
+    weekdays.shift();
 
-    return weekdays
+    return weekdays;
   } catch (error) {
     console.error(
       'Erro ao gerar array contendo as datas do calendário (getSemesterRange).',
       error
-    )
+    );
   }
 }
 
-function getClassesRange (subjectForm, semesterRange) {
+function getClassesRange(subjectForm, semesterRange) {
   try {
-    const classesRange = []
+    const classesRange = [];
     const formDaysOfWeek = subjectForm.classSchedules.map(
-      schedule => schedule.dayOfWeek
-    )
+      (schedule) => schedule.dayOfWeek
+    );
 
     for (const semesterDay of semesterRange) {
       for (const formDayOfWeek of formDaysOfWeek) {
         if (semesterDay.dayOfWeek.includes(formDayOfWeek)) {
           const classSchedule = subjectForm.classSchedules.find(
-            schedule => schedule.dayOfWeek === formDayOfWeek
-          )
+            (schedule) => schedule.dayOfWeek === formDayOfWeek
+          );
           if (classSchedule) {
             const classInfo = {
               dayOfMonth: semesterDay.dayOfMonth,
               dayOfWeek: semesterDay.dayOfWeek,
               classBeginning: classSchedule.classBeginning,
-              classEnding: classSchedule.classEnding
-            }
-            classesRange.push(classInfo)
+              classEnding: classSchedule.classEnding,
+            };
+            classesRange.push(classInfo);
           }
         }
       }
     }
 
-    return classesRange
+    return classesRange;
   } catch (error) {
     console.error(
       'Erro ao gerar calendário da disciplina (getClassesRange).',
       error
-    )
-    return []
+    );
+    return [];
   }
 }
 
-function addClassesToCalendar (classesRange, subjectName) {
-  classesRange.forEach(classInfo => {
-    const { dayOfMonth, dayOfWeek, classBeginning, classEnding } = classInfo
+function addClassesToCalendar(classesRange, subjectName) {
+  classesRange.forEach((classInfo) => {
+    const { dayOfMonth, dayOfWeek, classBeginning, classEnding } = classInfo;
 
-    createEvent(dayOfMonth, classBeginning, classEnding, subjectName)
-  })
+    createEvent(dayOfMonth, classBeginning, classEnding, subjectName);
+  });
 }
 
-function createTableWithClasses (classesRange) {
+function createTableWithClasses(classesRange) {
   try {
-    const table = document.createElement('table')
-    const thead = document.createElement('thead')
-    const tbody = document.createElement('tbody')
+    const table = document.createElement('table');
+    table.id = 'calendarTable';
+    const thead = document.createElement('thead');
+    const tbody = document.createElement('tbody');
 
     if (calendarScreen) {
-      table.setAttribute('class', 'hide')
-      document.getElementById('calendar').setAttribute('class', 'block-show')
+      table.setAttribute('class', 'hide');
+      document.getElementById('calendar').setAttribute('class', 'block-show');
     } else {
-      table.setAttribute('class', 'table-show')
-      document.getElementById('calendar').setAttribute('class', 'hide')
+      table.setAttribute('class', 'table-show');
+      document.getElementById('calendar').setAttribute('class', 'hide');
     }
 
     let subject = returnFromLocalStorage(
       document.getElementById('title').textContent
-    )
+    );
     // Linhas da tabela com dados
     for (let i = 0; i < classesRange.length; i++) {
-      const row = tbody.insertRow()
+      const row = tbody.insertRow();
       const { dayOfMonth, dayOfWeek, classBeginning, classEnding } =
-        classesRange[i]
+        classesRange[i];
 
-      const cellDayOfMonth = row.insertCell(0)
-      cellDayOfMonth.textContent = dayOfMonth
+      const cellDayOfMonth = row.insertCell(0);
+      cellDayOfMonth.textContent = dayOfMonth;
 
-      const cellDayOfWeek = row.insertCell(1)
-      cellDayOfWeek.textContent = dayOfWeek
+      const cellDayOfWeek = row.insertCell(1);
+      cellDayOfWeek.textContent = dayOfWeek;
 
-      const cellTime = row.insertCell(2)
-      cellTime.textContent = `${classBeginning} - ${classEnding}`
+      const cellTime = row.insertCell(2);
+      cellTime.textContent = `${classBeginning} - ${classEnding}`;
 
-      const cellContent = row.insertCell(3)
-      const input = document.createElement(`textarea`)
+      const cellContent = row.insertCell(3);
+      const input = document.createElement(`textarea`);
       if (subject && subject.classContent && subject.classContent[i]) {
-        console.log(subject)
-        input.value = subject.classContent[i].content
+        console.log(subject);
+        input.value = subject.classContent[i].content;
+      } else {
+        input.value = '';
       }
 
-      input.setAttribute('id', `textarea${i}`)
+      input.setAttribute('id', `textarea${i}`);
       input.addEventListener('input', () => {
-        adjustTextAreaHeight(input)
-        const subjectName = document.getElementById('title').textContent
-        let object = returnFromLocalStorage(subjectName)
-        object.classContent[i].content = input.value
+        adjustTextAreaHeight(input);
+        const subjectName = document.getElementById('title').textContent;
+        let object = returnFromLocalStorage(subjectName);
+        object.classContent[i].content = input.value;
         // if (input.value === undefined) {
         //   object.classContent[i].content = '';
         // } else {
         // }
-        saveToLocalStorage(object, subjectName)
-      })
-      cellContent.appendChild(input)
+        saveToLocalStorage(object, subjectName);
+      });
+      cellContent.appendChild(input);
     }
 
     // Cabeçalho da tabela
     if (classesRange.length > 0) {
-      const headerRow = thead.insertRow()
+      const headerRow = thead.insertRow();
       const headers = [
         'Dia do Mês',
         'Dia da Semana',
         'Horário',
-        'Conteúdo da Aula'
-      ]
+        'Conteúdo da Aula',
+      ];
 
-      headers.forEach(headerText => {
-        const th = document.createElement('th')
-        th.textContent = headerText
-        headerRow.appendChild(th)
-      })
+      headers.forEach((headerText) => {
+        const th = document.createElement('th');
+        th.textContent = headerText;
+        headerRow.appendChild(th);
+      });
     }
 
-    table.appendChild(thead)
-    table.appendChild(tbody)
+    table.appendChild(thead);
+    table.appendChild(tbody);
 
-    const cells = table.getElementsByTagName('td')
+    const cells = table.getElementsByTagName('td');
     for (let i = 0; i < cells.length; i++) {
-      cells[i].style.border = '1px solid #dddddd'
-      cells[i].padding = '8px'
+      cells[i].style.border = '1px solid #dddddd';
+      cells[i].padding = '8px';
     }
 
-    return table
+    document.querySelector('#centerContainer').appendChild(table);
   } catch (error) {
     console.error(
       'Erro ao criar tabela da disciplina (createTableWithClasses).',
       error
-    )
+    );
   }
 }
 
-function fillFormFields (savedData) {
-  document.getElementById('subjectName').value = savedData.subjectName
-  document.getElementById('className').value = savedData.className
-  document.getElementById('institution').value = savedData.institution
-  document.getElementById('startDate').value = savedData.startDate
-  document.getElementById('endDate').value = savedData.endDate
+function fillFormFields(savedData) {
+  document.getElementById('subjectName').value = savedData.subjectName;
+  document.getElementById('className').value = savedData.className;
+  document.getElementById('institution').value = savedData.institution;
+  document.getElementById('startDate').value = savedData.startDate;
+  document.getElementById('endDate').value = savedData.endDate;
 
-  const classesPerWeek = savedData.classesPerWeek
-  document.getElementById('classes').value = classesPerWeek
-  createClassesSchedulesForm()
+  const classesPerWeek = savedData.classesPerWeek;
+  document.getElementById('classes').value = classesPerWeek;
+  createClassesSchedulesForm();
 
   for (let i = 1; i <= classesPerWeek; i++) {
     document.getElementById(`day${i}`).value =
-      savedData.classSchedules[i - 1].dayOfWeek
+      savedData.classSchedules[i - 1].dayOfWeek;
     document.getElementById(`beginning${i}`).value =
-      savedData.classSchedules[i - 1].classBeginning
+      savedData.classSchedules[i - 1].classBeginning;
     document.getElementById(`classEnding${i}`).value =
-      savedData.classSchedules[i - 1].classEnding
+      savedData.classSchedules[i - 1].classEnding;
   }
 }
 
-function addSubjectToDropdown (subjectName) {
-  const subjectOptions = document.getElementById('subjectOptions')
-  const subject = document.createElement('div')
-  subject.textContent = subjectName
+function addSubjectToDropdown(subjectName) {
+  const subjectOptions = document.getElementById('subjectOptions');
+  const subject = document.createElement('div');
+  subject.textContent = subjectName;
   subject.addEventListener('click', () => {
-    document.querySelector('#title').textContent = `${subjectName}`
-    document.querySelectorAll('.ec-event').forEach(element => element.remove())
+    document.querySelector('#title').textContent = `${subjectName}`;
+    document
+      .querySelectorAll('.ec-event')
+      .forEach((element) => element.remove());
     document
       .querySelector('.optionsContainer')
       .querySelectorAll('button')
-      .forEach(element => element.classList.remove('hide'))
+      .forEach((element) => element.classList.remove('hide'));
 
-    show(subjectName)
-    const savedData = returnFromLocalStorage(subjectName)
+    show(subjectName);
+    const savedData = returnFromLocalStorage(subjectName);
     if (savedData) {
-      fillFormFields(savedData)
-      generateCalendar()
+      fillFormFields(savedData);
+      generateCalendar();
     }
-  })
-  subjectOptions.appendChild(subject)
+  });
+  subjectOptions.appendChild(subject);
 }
 
 function generateCalendar() {
   const subjectForm = saveSubjectFormInArray();
-
-  if (subjectForm) {
-    const startDate = new Date(subjectForm.startDate);
-    const endDate = new Date(subjectForm.endDate);
-    const semesterRange = getSemesterRange(startDate, endDate);
-
-    // Chamada para criar a tabela com as datas das aulas
-    createTableWithClasses(semesterRange);
-
-    // Adiciona as aulas ao calendário (caso necessário)
-    addClassesToCalendar(semesterRange, subjectForm.subjectName);
-  }
 }
 
-function main () {
-  const generateCalendarButton = document.getElementById('generateCalendarButton');
+function main() {
+  const generateCalendarButton = document.getElementById(
+    'generateCalendarButton'
+  );
   generateCalendarButton.addEventListener('click', () => {
     generateCalendar();
     const subjectName = document.getElementById('subjectName').value;
     addSubjectToDropdown(subjectName);
+    document.querySelector('#title').textContent = `${subjectName}`;
+    document
+      .querySelectorAll('.ec-event')
+      .forEach((element) => element.remove());
+    document
+      .querySelector('.optionsContainer')
+      .querySelectorAll('button')
+      .forEach((element) => element.classList.remove('hide'));
+
+    show(subjectName);
+    const savedData = returnFromLocalStorage(subjectName);
+    if (savedData) {
+      fillFormFields(savedData);
+    }
   });
 
-  const keys = []
+  const keys = [];
   for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i)
+    const key = localStorage.key(i);
     // console.log(key);
     if (key.startsWith('subject')) {
-      const subject = localStorage.getItem(key)
-      const parsedSubject = JSON.parse(subject)
-      keys.push(parsedSubject)
-      console.log(parsedSubject.subjectName)
-      addSubjectToDropdown(parsedSubject.subjectName)
+      const subject = localStorage.getItem(key);
+      const parsedSubject = JSON.parse(subject);
+      keys.push(parsedSubject);
+      console.log(parsedSubject.subjectName);
+      addSubjectToDropdown(parsedSubject.subjectName);
     }
   }
 
-  console.log(keys)
+  console.log(keys);
 }
 
-main()
+main();
