@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calendário</title>
     <!-- Fontes -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
     <!-- CSS -->
     <link rel="stylesheet" href="./style.css" />
     <!-- Calendário -->
@@ -17,8 +20,14 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@2.3.3/event-calendar.min.js"></script>
     <!-- Icones -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
   </head>
   <body>
     <div id="container">
@@ -29,143 +38,129 @@
         <div class="headerButtons">
           <button class="add" id="openModalBtn">
             <div class="conf">
-              <h4> + Adicionar</h4>
+              <h4>+ Adicionar</h4>
             </div>
           </button>
         </div>
-    
       </header>
       <main>
         <div class="optionsContainer">
           <div class="optionsButtons">
-            <button>
+            <button type="button" class="hide" id="listButton">
               <span class="material-symbols-outlined">
                 format_list_bulleted
               </span>
             </button>
-            <button>
-              <span class="material-symbols-outlined">
-                calendar_month
-              </span>
+            <button type="button" class="hide" id="calendarButton">
+              <span class="material-symbols-outlined"> calendar_month </span>
             </button>
           </div>
-          <h2 class="title">Português</h2>
-          <div class="dropdown">
-            <input class="text-box" type="text" placeholder="Selecionar aula" readonly>
-          <div class="options">
-            <div onclick="show('Português')">Português</div>
-            <div onclick="show('Matemática')">Matemática</div>
+          <h2 id="title" class="title"></h2>
+          <div class="optionsButtons">
+            <button type="button" class="hide" id="deleteButton">
+              <span class="material-symbols-outlined"> delete </span>
+            </button>
+            <div class="dropdown">
+              <input
+                class="text-box"
+                type="text"
+                placeholder="Selecionar aula"
+                readonly
+              />
+              <div id="subjectOptions" class="options"></div>
+            </div>
           </div>
         </div>
+        <div id="centerContainer">
+          <div id="calendar"></div>
         </div>
-        <div id="calendar"></div>
       </main>
-    <div id="myModal" class="modal">
+      <div id="myModal" class="modal">
         <div class="modal-content">
           <div class="modal-header">
-          
-        <h2>ADICIONAR AULAS</h2>
-        <h6>Insira informacoes da disciplina e liste os dias</h6>
-        <hr>
-        <span class="close" id="closeModalBtn">&times;</span>
-
+            <h2>ADICIONAR AULAS</h2>
+            <h6>Insira informacoes da disciplina e liste os dias</h6>
+            <hr />
+            <span class="close" id="closeModalBtn">&times;</span>
           </div>
-        <br>
-            
-            <form id="dateForm">
-              
-              <div class="css_forms">
-                <label for="subjectName">Disciplina</label>
-                <input type="input" id="subjectName" class="name" placeholder="Digite o nome da disciplina"required>
 
-                <br><br>
+          <form id="dateForm">
+            <div class="css_forms">
+              <label for="subjectName">Disciplina</label>
+              <input
+                type="input"
+                id="subjectName"
+                class="name"
+                placeholder="Digite o nome da disciplina"
+                required
+              />
 
-                <label for="className">Turma</label>
-                <input type="input" id="className" class="turma" placeholder="Digite a turna" required>
+              <label for="className">Turma</label>
+              <input
+                type="input"
+                id="className"
+                class="turma"
+                placeholder="Digite a turna"
+                required
+              />
 
-                <br></br>
+              <label for="institution">Instituição</label>
+              <input
+                type="input"
+                id="institution"
+                class="int"
+                placeholder="Digite a instituicao"
+                required
+              />
+            </div>
 
-                <label for="institution">Instituição</label>
-                <input type="input" id="institution" class="int" placeholder="Digite a instituicao"required>
+            <div class="data">
+              <div class="center">
+                <label for="startDate">Início da grade</label>
+                <input type="date" id="startDate" required />
+              </div>
+              <div class="center">
+                <label for="endDate">Fim da grade</label>
+                <input type="date" id="endDate" required />
               </div>
 
-              <br>
+              <!-- <div class="col center">
+                <label for="corDoEvento">Cor</label>
+                <input type="color" id="corDoEvento" />
+              </div> -->
+            </div>
 
-              <div class="data">
-                <div class="center">
-                  <label for="startDate">Início da grade</label>
-                  <input type="date" id="startDate" required>
-                </div>
-                <div class="center">
-                  <label for="endDate">Fim da grade</label>
-                  <input type="date" id="endDate" required>
-                </div>
+            <script></script>
 
-                <div class="col center">
-                  <label for="corDoEvento">Cor</label>
-                  <input type="color" id="corDoEvento">
-                </div>
-  
-              </div>
-        
-
-                <script>
-                    function createClassesSchedulesForm() {
-                        var classes = parseInt(document.getElementById("classes").value);
-                        var container = document.getElementById("classesContainer");
-                        container.innerHTML = ''; // Limpa os campos anteriores
-
-                        for (var i = 1; i <= classes; i++) {
-                            var div = document.createElement("div");
-                            div.innerHTML = `
-                            <label for="day${i}">Dia da semana:</label>
-                            <select id="day${i}" name="days[${i}]">
-                                <option value="Segunda">Segunda-feira</option>
-                                <option value="Terça">Terça-feira</option>
-                                <option value="Quarta">Quarta-feira</option>
-                                <option value="Quinta">Quinta-feira</option>
-                                <option value="Sexta">Sexta-feira</option>
-                                <option value="Sábado">Sábado</option>
-                                <option value="Domingo">Domingo</option>
-                            </select>
-                            <label for="classBeginning${i}">Hora de início:</label>
-                            <input type="time" id="beginning${i}" name="classBeginning[${i}]">
-                            <label for="classEnding${i}">Hora de fim:</label>
-                            <input type="time" id="classEnding${i}" name="classEnding[${i}]">
-                        `;
-                            container.appendChild(div);
-                        }
-                    }
-                </script>
-
-
-                <br>
-                <p>Recorencia das aulas na semana</p>
-                <input type="number" id="classes" name="classes" min="1" max="7">
-                <input type="button" value="+ Criar Campos" onclick="createClassesSchedulesForm()">
-
-            </form>
+            <br />
+            <p>Recorencia das aulas na semana</p>
+            <input type="number" id="classes" name="classes" min="1" max="7" />
+            <input
+              id="createScheduleInput"
+              type="button"
+              value="+ Criar Campos"
+            />
 
             <div id="classesContainer"></div>
 
-            <br><br>
             <div id="cancelSaveButtons">
               <button type="button" id="generateCancel">CANCELAR</button>
               <button type="button" id="generateCalendarButton">SALVAR</button>
             </div>
-
-            <div id="myPopUp" class="popup">
-                <div class="popup-content">
-                    <span class="close" id="closePopUpBtn">&times;</span>
-                    <p>Tem certeza de que deseja excluir este cadastro?</p>
-                    <button id="popupDeleteConfirm">Excluir</button>
-                    <button id="popupDeleteCancel">Cancelar</button>
-                </div>
-            </div>
+          </form>
         </div>
-        </form>
-
-        <button type="button" id="deleteSubject">Excluir</button>
+      </div>
+      <button id="overlay" class="hide"></button>
+      <div id="deletePopup" class="hide">
+        <div class="deletePopupContent">
+          <p>Tem certeza que deseja deletar?</p>
+          <div class="deletePopupButtons">
+            <button id="cancelPopupButton">Cancelar</button>
+            <button id="confirmPopupButton">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <script src="./script.js"></script>
-  </m>
+  </body>
 </html>
